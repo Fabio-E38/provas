@@ -1,0 +1,22 @@
+<!-- <router-outlet />    -->
+ 
+
+
+<div class="app-container">
+  
+  <!-- HEADER COMPONENT -->
+  <app-header 
+    (searchCity)="onSearchCity($event)"
+    (toggleSidebar)="onToggleSidebar()">
+  </app-header>
+
+  <!-- CONTENUTO PRINCIPALE -->
+  <main class="main-content">
+    <router-outlet></router-outlet>
+    
+    <!-- Testo temporaneo per vedere se funziona -->
+    <h1>Benvenuto nella Weather App! 🌤️</h1>
+    <p>L'header dovrebbe essere visibile sopra.</p>
+  </main>
+
+</div>

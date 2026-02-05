@@ -1,0 +1,41 @@
+/* App Component Styles
+
+:host {
+  display: block;
+  min-height: 100vh;
+} */
+/* FILE INIZIALMENTE VUOTO */
+
+/* Reset base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container principale */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenuto sotto l'header */
+.main-content {
+  flex: 1;
+  background: #f7fafc;
+  padding: 24px;
+}
+
+.main-content h1 {
+  color: #2d3748;
+  margin-bottom: 16px;
+}
+
+.main-content p {
+  color: #718096;
+}
