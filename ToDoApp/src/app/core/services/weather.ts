@@ -34,7 +34,7 @@ export interface WeatherData {
 })
 export class Weather {
   
-
+// PROVA
 // ⚠️ SOSTITUISCI CON LA TUA API KEY!
   private apiKey = '2a671af677224b3e838100329260202';
   private apiUrl = 'https://www.weatherapi.com/my/';
