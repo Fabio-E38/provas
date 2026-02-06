@@ -11,8 +11,8 @@
     </nav>
     
     <div class="header-info">
-      <span class="time">{{ currentTime | date:'HH:mm' }}</span>
-      <span class="date">{{ currentTime | date:'dd MMM yyyy' }}</span>
+      <span class="time">{{ currentTime() | date:'HH:mm' }}</span>
+      <span class="date">{{ currentTime() | date:'dd MMM yyyy' }}</span>
     </div>
   </div>
 </header>
