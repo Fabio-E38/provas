@@ -1,65 +1,18 @@
-<!-- FILE INIZIALMENTE VUOTO -->
-
-<header class="header">
-
-  <!-- Logo e nome -->
-  <div class="logo-section">
-    <!-- <span class="logo-icon">🌤️</span> -->
-    <h1 class="app-name">Weather Dashboard</h1>
-  </div>
-
-  <!-- Barra di ricerca -->
-  <div class="search-section">
-    <div class="search-box">
-      <!-- <span class="search-icon">🔍</span> -->
-      <input 
-        type="text" 
-        placeholder="Search city..." 
-        [(ngModel)]="searchQuery" 
-        (keyup.enter)="onSearch()"
-        class="search-input"
-      >
-      <button
-        *ngIf="searchQuery"
-        (click)="clearSearch()"
-        class="clear-btn"
-      >
-        ✕
-      </button>
+<header class="app-header">
+  <div class="header-content">
+    <div class="logo">
+      <span class="icon">🌤️</span>
+      <h1>{{ appTitle }}</h1>
+    </div>
+    
+    <nav class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a routerLink="/about" routerLinkActive="active">Info</a>
+    </nav>
+    
+    <div class="header-info">
+      <span class="time">{{ currentTime | date:'HH:mm' }}</span>
+      <span class="date">{{ currentTime | date:'dd MMM yyyy' }}</span>
     </div>
   </div>
-
-  <!-- Azioni utente -->
-  <div class="user-section">
-
-    <!-- Notifiche -->
-    <button class="icon-btn" title="Notifiche">
-      <span class="icon">🔔</span>
-      <span class="badge" *ngIf="hasNotifications">3</span>
-    </button>
-
-    <!-- Impostazioni -->
-    <button class="icon-btn" title="Impostazioni">
-      <span class="icon">⚙️</span>
-    </button>
-
-    <!-- Profilo utente -->
-    <div class="user-profile">
-      <img 
-        src="https://ui-avatars.com/api/?name=Fabio+Guarachi&background=667eea&color=fff&size=128" 
-        alt="User Avatar"
-        class="avatar"
-      >
-      <span class="user-name">Fabio</span>
-    </div>
-
-    <!-- Menu Hamburger (Mobile) -->
-    <button class="hamburger" (click)="toggleMobileMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-
-  </div>
-
 </header>

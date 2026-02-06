@@ -1,22 +1,9 @@
-<!-- <router-outlet />    -->
- 
-
-
 <div class="app-container">
-  
   <!-- HEADER COMPONENT -->
-  <app-header 
-    (searchCity)="onSearchCity($event)"
-    (toggleSidebar)="onToggleSidebar()">
-  </app-header>
+  <app-header></app-header>
 
   <!-- CONTENUTO PRINCIPALE -->
   <main class="main-content">
     <router-outlet></router-outlet>
-    
-    <!-- Testo temporaneo per vedere se funziona -->
-    <h1>sotto da implementare altre sezioni</h1>
-    <p>sottotitolo di prova</p>
   </main>
-
 </div>

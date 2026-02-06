@@ -1,0 +1,44 @@
+<div class="about-container">
+  <div class="hero">
+    <h1>📚 Informazioni sul Mini Progetto</h1>
+    <p class="subtitle">Un'app minimalista per vedere Angular in azione</p>
+  </div>
+
+  <section class="features-section">
+    <h2>✨ Funzionalità Implementate</h2>
+    <div class="features-grid">
+      @for (feature of features; track feature.title) {
+        <div class="feature-card">
+          <div class="feature-icon">{{ feature.icon }}</div>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="tech-section">
+    <h2>🛠️ Tecnologie Utilizzate</h2>
+    <div class="tech-tags">
+      @for (tech of technologies; track tech) {
+        <span class="tech-tag">{{ tech }}</span>
+      }
+    </div>
+  </section>
+
+  <section class="demo-section">
+    <h2>🎯 Cosa Dimostra Questo Mini Sito</h2>
+    <ul class="demo-list">
+      <li><strong>Chiamate HTTP:</strong> Il servizio Weather chiama l'API OpenWeatherMap</li>
+      <li><strong>Routing:</strong> Navigazione tra Home e About con lazy loading</li>
+      <li><strong>Componenti:</strong> Header riutilizzabile, componenti standalone</li>
+      <li><strong>Reactive Programming:</strong> Gestione asincrona con Observable e Signals</li>
+      <li><strong>Forms:</strong> Two-way binding con [(ngModel)]</li>
+      <li><strong>Conditional Rendering:</strong> Direttive if e for (nuova sintassi Angular)</li>
+    </ul>
+  </section>
+
+  <div class="back-link">
+    <a routerLink="/" class="btn-back">← Torna alla Home</a>
+  </div>
+</div>

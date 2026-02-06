@@ -1,0 +1,66 @@
+<div class="home-container">
+  <h1>🌤️ Mini Weather App</h1>
+  
+  <!-- Barra di ricerca -->
+  <div class="search-box">
+    <input 
+      type="text" 
+      [(ngModel)]="cityName"
+      (keyup.enter)="searchWeather()"
+      placeholder="Cerca una città (es: Milano, Roma)..."
+      class="search-input"
+    />
+    <button (click)="searchWeather()" class="search-btn">
+      Cerca
+    </button>
+  </div>
+
+  <!-- Messaggio errore -->
+  @if (error()) {
+    <div class="error-msg">⚠️ {{ error() }}</div>
+  }
+
+  <!-- Loading spinner -->
+  @if (loading()) {
+    <div class="spinner">🔄 Caricamento...</div>
+  }
+
+  <!-- Dati meteo -->
+  @if (weatherData() && !loading()) {
+    <div class="weather-card">
+      <h2>📍 {{ weatherData()!.location.name }}, {{ weatherData()!.location.country }}</h2>
+      
+      <div class="temp-main">
+        <span class="temp">{{ weatherData()!.current.temp }}°C</span>
+        <span class="description">{{ weatherData()!.current.weather.description }}</span>
+      </div>
+
+      <div class="details-grid">
+        <div class="detail">
+          <span>🌡️ Percepita</span>
+          <strong>{{ weatherData()!.current.feelsLike }}°C</strong>
+        </div>
+        <div class="detail">
+          <span>💧 Umidità</span>
+          <strong>{{ weatherData()!.current.humidity }}%</strong>
+        </div>
+        <div class="detail">
+          <span>💨 Vento</span>
+          <strong>{{ weatherData()!.current.windSpeed }} km/h</strong>
+        </div>
+        <div class="detail">
+          <span>☁️ Nuvolosità</span>
+          <strong>{{ weatherData()!.current.clouds }}%</strong>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Messaggio iniziale -->
+  @if (!weatherData() && !loading() && !error()) {
+    <div class="welcome">
+      <p>👋 Benvenuto! Cerca una città per vedere il meteo.</p>
+      <p class="hint">💡 Esempio: prova con "Milano", "Roma" o "Napoli"</p>
+    </div>
+  }
+</div>

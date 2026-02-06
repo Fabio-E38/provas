@@ -1,0 +1,159 @@
+.home-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 30px;
+}
+
+/* Barra di ricerca */
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #3498db;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.search-input:focus {
+  border-color: #2980b9;
+}
+
+.search-btn {
+  padding: 12px 24px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.search-btn:hover {
+  background: #2980b9;
+}
+
+/* Card meteo */
+.weather-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: fadeIn 0.5s;
+}
+
+.weather-card h2 {
+  margin: 0 0 20px 0;
+  font-size: 24px;
+}
+
+.temp-main {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.temp {
+  display: block;
+  font-size: 64px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.description {
+  display: block;
+  font-size: 20px;
+  text-transform: capitalize;
+  opacity: 0.9;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.detail {
+  background: rgba(255,255,255,0.1);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.detail span {
+  display: block;
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 5px;
+}
+
+.detail strong {
+  display: block;
+  font-size: 20px;
+}
+
+/* Messaggi */
+.error-msg {
+  background: #e74c3c;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  animation: shake 0.5s;
+}
+
+.spinner {
+  text-align: center;
+  font-size: 20px;
+  padding: 40px;
+  animation: pulse 1s infinite;
+}
+
+.welcome {
+  text-align: center;
+  padding: 60px 20px;
+  color: #7f8c8d;
+}
+
+.welcome p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.hint {
+  font-size: 14px !important;
+  opacity: 0.7;
+}
+
+/* Animazioni */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-10px); }
+  75% { transform: translateX(10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
