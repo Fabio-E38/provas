@@ -1,0 +1,5 @@
+<ng-container *ngIf="overlayService.overlayState$ | async as overlayState">
+  <app-chat-overlay
+    *ngIf="overlayState.isOpen && overlayState.type === 'chat'"
+  ></app-chat-overlay>
+</ng-container>
