@@ -1,0 +1,44 @@
+<div class="login-page">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Ticketing System</h1>
+      <p>Accedi al tuo account aziendale</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="field-group">
+        <label>Email</label>
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="nome.cognome@azienda.it"
+          [class.input-error]="email?.invalid && email?.touched"
+        />
+        <p *ngIf="email?.invalid && email?.touched" class="field-error">
+          Inserisci un indirizzo email valido.
+        </p>
+      </div>
+
+      <div class="field-group">
+        <label>Password</label>
+        <input
+          type="password"
+          formControlName="password"
+          placeholder="••••••••"
+          [class.input-error]="password?.invalid && password?.touched"
+        />
+        <p *ngIf="password?.invalid && password?.touched" class="field-error">
+          La password è obbligatoria.
+        </p>
+      </div>
+
+      <p *ngIf="errorMessage" class="global-error">
+        {{ errorMessage }}
+      </p>
+
+      <button type="submit" [disabled]="loginForm.invalid || isLoading" class="submit-btn">
+        {{ isLoading ? 'Accesso in corso...' : 'Accedi' }}
+      </button>
+    </form>
+  </div>
+</div>
