@@ -1,4 +1,27 @@
-# Ticketing
+# Ticketing System
+
+Questo progetto è un portale di ticketing sviluppato in Angular 21.
+
+## Fasi del Progetto
+
+### ✅ Completate
+- **Fase 1** — Struttura cartelle e file vuoti
+- **Fase 2** — Modelli TypeScript (`ticket`, `user`, `feedback` ecc.)
+- **Fase 3** — Routing + pagine placeholder + lazy loading
+- **Fase 4** — Auth Custom JWT (Service, Guard, Interceptor, Environments puliti)
+
+### 🔄 In corso
+- **Fase 5** — UI Login e Mock Data (Form login, salvataggio token, mock services)
+
+### ⏳ Da fare
+- **Fase 6** — UI pagine (`home`, `cases`, `ticket`, `feedback`)
+- **Fase 7** — Componenti shared (`button`, `toast`, `modal`, `overlay-container`)
+- **Fase 8** — Overlay pattern (`overlay.service` + flusso chat→ticket→feedback)
+- **Fase 9** — Integrazione API reale D365 (sostituisce i mock)
+- **Fase 10** — Chat + Knowledge Base (AI)
+- **Fase 11** — Rifinitura (validazioni, errori, performance)
+
+---
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
 

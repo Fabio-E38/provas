@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './services/auth.guard';
 
 // Routes è il tipo Angular per definire l'array delle rotte.
 // Fornisce autocompletamento e controllo errori TypeScript.
@@ -11,21 +12,40 @@ export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
   // Rotta pubblica: accessibile senza autenticazione.
-  // Dopo aver configurato MSAL, questa sarà l'unica rotta senza MsalGuard.
   { 
     path: 'login', 
     loadComponent: () => import('./pages/auth/login.component')
       .then(m => m.LoginComponent) 
   },
 
-  // Rotte protette (dopo Fase 4 avranno canActivate: [MsalGuard]).
+  // Rotte protette (usano canActivate: [authGuard]).
   // Usano tutte lazy loading: il componente viene scaricato solo quando
   // l'utente naviga su quella rotta, non all'avvio dell'app.
-  { path: 'home',       loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent) },
-  { path: 'cases',      loadComponent: () => import('./pages/cases/cases-list.component').then(m => m.CasesListComponent) },
-  { path: 'cases/:id',  loadComponent: () => import('./pages/cases/case-detail.component').then(m => m.CaseDetailComponent) },
-  { path: 'ticket',     loadComponent: () => import('./pages/ticket/ticket-form.component').then(m => m.TicketFormComponent) },
-  { path: 'feedback',   loadComponent: () => import('./pages/feedback/feedback.component').then(m => m.FeedbackComponent) },
+  { 
+    path: 'home',       
+    loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent),
+    canActivate: [authGuard]
+  },
+  { 
+    path: 'cases',      
+    loadComponent: () => import('./pages/cases/cases-list.component').then(m => m.CasesListComponent),
+    canActivate: [authGuard]
+  },
+  { 
+    path: 'cases/:id',  
+    loadComponent: () => import('./pages/cases/case-detail.component').then(m => m.CaseDetailComponent),
+    canActivate: [authGuard]
+  },
+  { 
+    path: 'ticket',     
+    loadComponent: () => import('./pages/ticket/ticket-form.component').then(m => m.TicketFormComponent),
+    canActivate: [authGuard]
+  },
+  { 
+    path: 'feedback',   
+    loadComponent: () => import('./pages/feedback/feedback.component').then(m => m.FeedbackComponent),
+    canActivate: [authGuard]
+  },
 
   // Wildcard: qualsiasi URL non riconosciuto viene reindirizzato a /home.
   // Va sempre messo come ULTIMA rotta, altrimenti blocca le rotte successive.

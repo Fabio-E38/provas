@@ -1,5 +1,13 @@
+export enum UserRole {
+  Admin = 'Admin',
+  Employee = 'Employee',
+  Support = 'Support'
+}
+
 export interface User {
-  fullName: string;
-  title: string;
-  businessUnit: string;
+  id: string;
+  name: string;
+  email: string;
+  role: UserRole;
+  department?: string; // Opzionale
 }
