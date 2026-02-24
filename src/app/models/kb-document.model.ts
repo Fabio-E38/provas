@@ -1,2 +1,6 @@
-// TODO: definire quando API KB è pronta
-export interface KbDocument {}
+export interface KbDocument {
+	id: string;
+	title: string;
+	summary: string;
+	fileType: string;
+}

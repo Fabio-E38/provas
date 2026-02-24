@@ -1,6 +1,6 @@
 export interface Feedback {
   title: string;
   rating: number;
-  comments: string;
+  comments?: string;
   source: string;
 }
