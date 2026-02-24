@@ -1,0 +1,87 @@
+<div class="min-h-screen bg-gray-50 p-6">
+  <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Nuovo Ticket</h1>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid gap-4">
+      <div>
+        <label class="block text-sm text-gray-700 mb-1">Titolo</label>
+        <input formControlName="title" class="w-full border rounded-lg px-3 py-2" />
+      </div>
+
+      <div>
+        <label class="block text-sm text-gray-700 mb-1">Subject</label>
+        <input formControlName="subject" class="w-full border rounded-lg px-3 py-2" />
+      </div>
+
+      <div>
+        <label class="block text-sm text-gray-700 mb-1">Descrizione</label>
+        <textarea formControlName="description" rows="4" class="w-full border rounded-lg px-3 py-2"></textarea>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm text-gray-700 mb-1">Priorità</label>
+          <select formControlName="priority" class="w-full border rounded-lg px-3 py-2">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm text-gray-700 mb-1">Severity</label>
+          <select formControlName="severity" class="w-full border rounded-lg px-3 py-2">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm text-gray-700 mb-1">Status</label>
+          <input formControlName="status" class="w-full border rounded-lg px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-sm text-gray-700 mb-1">Status Reason</label>
+          <input formControlName="statusReason" class="w-full border rounded-lg px-3 py-2" />
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm text-gray-700 mb-1">Origin</label>
+          <input formControlName="origin" class="w-full border rounded-lg px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-sm text-gray-700 mb-1">Customer ID</label>
+          <input formControlName="customer" class="w-full border rounded-lg px-3 py-2" />
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm text-gray-700 mb-1">Email</label>
+          <input formControlName="email" type="email" class="w-full border rounded-lg px-3 py-2" />
+        </div>
+        <div>
+          <label class="block text-sm text-gray-700 mb-1">Product</label>
+          <input formControlName="product" class="w-full border rounded-lg px-3 py-2" />
+        </div>
+      </div>
+
+      <p *ngIf="message" class="text-sm text-green-700 bg-green-50 border border-green-200 rounded p-2">
+        {{ message }}
+      </p>
+
+      <div class="flex gap-3 pt-2">
+        <button type="submit" [disabled]="form.invalid" class="px-5 py-2 bg-blue-600 text-white rounded-lg disabled:bg-blue-300">
+          Crea Ticket
+        </button>
+        <a routerLink="/home" class="px-5 py-2 border rounded-lg text-gray-700">Home</a>
+        <a routerLink="/cases" class="px-5 py-2 border rounded-lg text-gray-700">Annulla</a>
+      </div>
+    </form>
+  </div>
+</div>

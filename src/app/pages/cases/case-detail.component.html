@@ -1,0 +1,27 @@
+<div class="min-h-screen bg-gray-50 p-6">
+  <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div class="flex items-center gap-4">
+      <a routerLink="/home" class="text-sm text-blue-600 hover:underline">← Home</a>
+      <a routerLink="/cases" class="text-sm text-blue-600 hover:underline">Torna alla lista</a>
+    </div>
+
+    <div *ngIf="loading" class="mt-4 text-sm text-gray-500">Caricamento dettaglio...</div>
+
+    <div *ngIf="!loading && !ticket" class="mt-4 text-sm text-red-600">
+      Ticket non trovato.
+    </div>
+
+    <div *ngIf="!loading && ticket" class="mt-4 space-y-3">
+      <p class="text-xs text-gray-500">{{ ticket.numberId }}</p>
+      <h1 class="text-2xl font-bold text-gray-800">{{ ticket.title }}</h1>
+      <p class="text-gray-700">{{ ticket.description }}</p>
+
+      <div class="grid sm:grid-cols-2 gap-3 pt-2">
+        <div><span class="text-xs text-gray-500">Stato:</span> <span class="text-sm">{{ ticket.status }}</span></div>
+        <div><span class="text-xs text-gray-500">Priorità:</span> <span class="text-sm">{{ ticket.priority }}</span></div>
+        <div><span class="text-xs text-gray-500">Cliente:</span> <span class="text-sm">{{ ticket.customer }}</span></div>
+        <div><span class="text-xs text-gray-500">Email:</span> <span class="text-sm">{{ ticket.email }}</span></div>
+      </div>
+    </div>
+  </div>
+</div>
