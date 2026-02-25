@@ -7,8 +7,14 @@
       (click)="$event.stopPropagation()"
     >
       <div class="h-full grid grid-cols-1 lg:grid-cols-[1fr_320px]">
-        <app-chat #chatCmp></app-chat>
-        <app-kb-panel #kbCmp></app-kb-panel>
+        <app-chat
+          [messages]="messages"
+          [showResolutionActions]="showResolutionActions"
+          (messageSent)="onMessageSent($event)"
+          (resolved)="onResolved()"
+          (unresolved)="onUnresolved()">
+        </app-chat>
+        <app-kb-panel [documents]="kbDocuments"></app-kb-panel>
       </div>
     </div>
   </div>

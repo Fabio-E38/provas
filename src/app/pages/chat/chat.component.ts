@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatMessage } from '../../models/chat-message.model';
@@ -11,27 +11,27 @@ import { ChatMessage } from '../../models/chat-message.model';
   styleUrl: './chat.component.css',
 })
 export class ChatComponent {
-  messages: ChatMessage[] = [];
-  draft = '';
-  showResolutionActions = false;
+  @Input() messages: ChatMessage[] = [];
+  @Input() showResolutionActions = false;
+  @Output() messageSent = new EventEmitter<string>();
+  @Output() resolved = new EventEmitter<void>();
+  @Output() unresolved = new EventEmitter<void>();
 
-  sendHandler?: (message: string) => void;
-  resolvedHandler?: () => void;
-  unresolvedHandler?: () => void;
+  draft = '';
 
   send(): void {
     const message = this.draft.trim();
     if (!message) return;
 
-    this.sendHandler?.(message);
+    this.messageSent.emit(message);
     this.draft = '';
   }
 
   markResolved(): void {
-    this.resolvedHandler?.();
+    this.resolved.emit();
   }
 
   markUnresolved(): void {
-    this.unresolvedHandler?.();
+    this.unresolved.emit();
   }
 }

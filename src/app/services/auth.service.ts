@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
 import { User, UserRole } from '../models/user.model';
 import { environment } from '../../environments/environment';
 
@@ -62,6 +62,18 @@ export class AuthService {
     localStorage.removeItem(this.TOKEN_KEY);
     localStorage.removeItem(this.USER_KEY);
     this.currentUserSubject.next(null);
+  }
+
+  // Mock: invia email con link di reset — TODO: POST /auth/forgot-password
+  forgotPassword(email: string): Observable<void> {
+    console.log('Mock forgot password per:', email);
+    return of(undefined).pipe(delay(600));
+  }
+
+  // Mock: reset password con token dall'URL — TODO: POST /auth/reset-password
+  resetPassword(token: string, newPassword: string): Observable<void> {
+    console.log('Mock reset password con token:', token);
+    return of(undefined).pipe(delay(600));
   }
 
   // Salva token e utente nel localStorage

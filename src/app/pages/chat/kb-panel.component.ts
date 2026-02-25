@@ -1,4 +1,4 @@
-﻿import { Component } from '@angular/core';
+﻿import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { KbDocument } from '../../models/kb-document.model';
 
@@ -10,5 +10,5 @@ import { KbDocument } from '../../models/kb-document.model';
   styleUrl: './kb-panel.component.css',
 })
 export class KbPanelComponent {
-  documents: KbDocument[] = [];
+  @Input() documents: KbDocument[] = [];
 }

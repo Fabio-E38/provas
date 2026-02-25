@@ -9,13 +9,25 @@ export const routes: Routes = [
   // Rotta di default: quando l'URL è vuoto "/" reindirizza a "/home".
   // pathMatch: 'full' = corrisponde SOLO all'URL esattamente vuoto.
   // Senza 'full', "" corrisponderebbe a qualsiasi URL (es. /cases, /ticket...).
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 
   // Rotta pubblica: accessibile senza autenticazione.
   { 
     path: 'login', 
     loadComponent: () => import('./pages/auth/login.component')
       .then(m => m.LoginComponent) 
+  },
+
+  // Rotte pubbliche aggiuntive: accessibili senza autenticazione.
+  {
+    path: 'forgot-password',
+    loadComponent: () => import('./pages/auth/forgot-password.component')
+      .then(m => m.ForgotPasswordComponent)
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () => import('./pages/auth/reset-password.component')
+      .then(m => m.ResetPasswordComponent)
   },
 
   // Rotte protette (usano canActivate: [authGuard]).
@@ -49,7 +61,7 @@ export const routes: Routes = [
 
   // Wildcard: qualsiasi URL non riconosciuto viene reindirizzato a /home.
   // Va sempre messo come ULTIMA rotta, altrimenti blocca le rotte successive.
-  { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: '/login' }
 
 ];
 

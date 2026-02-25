@@ -1,4 +1,4 @@
-﻿import { AfterViewInit, Component, ViewChild } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ChatComponent } from './chat.component';
@@ -16,9 +16,10 @@ import { KbDocument } from '../../models/kb-document.model';
   templateUrl: './chat-overlay.component.html',
   styleUrl: './chat-overlay.component.css',
 })
-export class ChatOverlayComponent implements AfterViewInit {
-  @ViewChild('chatCmp') chatCmp!: ChatComponent;
-  @ViewChild('kbCmp') kbCmp!: KbPanelComponent;
+export class ChatOverlayComponent implements OnInit {
+  messages: ChatMessage[] = [];
+  kbDocuments: KbDocument[] = [];
+  showResolutionActions = false;
 
   constructor(
     private chatService: ChatService,
@@ -27,57 +28,52 @@ export class ChatOverlayComponent implements AfterViewInit {
     private router: Router,
   ) {}
 
-  close(): void {
-    this.overlayService.close();
-  }
-
-  ngAfterViewInit(): void {
-    const chatCmp = this.chatCmp;
-    const kbCmp = this.kbCmp;
-
-    const welcomeMessage: ChatMessage = {
+  ngOnInit(): void {
+    this.messages = [{
       id: 'welcome',
       sender: 'bot',
       text: 'Ciao! Ti aiuto a risolvere il problema e a compilare il ticket più velocemente.',
       createdAt: new Date(),
+    }];
+  }
+
+  close(): void {
+    this.overlayService.close();
+  }
+
+  onMessageSent(userInput: string): void {
+    const userMessage: ChatMessage = {
+      id: `u-${Date.now()}`,
+      sender: 'user',
+      text: userInput,
+      createdAt: new Date(),
     };
 
-    chatCmp.messages = [welcomeMessage];
+    this.messages = [...this.messages, userMessage];
 
-    chatCmp.sendHandler = (userInput: string) => {
-      const userMessage: ChatMessage = {
-        id: `u-${Date.now()}`,
-        sender: 'user',
-        text: userInput,
+    this.kbService.suggestDocuments(userInput).subscribe((docs) => {
+      this.kbDocuments = docs;
+    });
+
+    this.chatService.sendMessage(userInput).subscribe((result) => {
+      const botMessage: ChatMessage = {
+        id: `b-${Date.now()}`,
+        sender: 'bot',
+        text: result.reply,
         createdAt: new Date(),
       };
 
-      chatCmp.messages = [...chatCmp.messages, userMessage];
+      this.messages = [...this.messages, botMessage];
+      this.showResolutionActions = true;
+    });
+  }
 
-      this.kbService.suggestDocuments(userInput).subscribe((docs: KbDocument[]) => {
-        kbCmp.documents = docs;
-      });
+  onResolved(): void {
+    this.overlayService.close();
+  }
 
-      this.chatService.sendMessage(userInput).subscribe((result) => {
-        const botMessage: ChatMessage = {
-          id: `b-${Date.now()}`,
-          sender: 'bot',
-          text: result.reply,
-          createdAt: new Date(),
-        };
-
-        chatCmp.messages = [...chatCmp.messages, botMessage];
-        chatCmp.showResolutionActions = true;
-      });
-    };
-
-    chatCmp.resolvedHandler = () => {
-      this.overlayService.close();
-    };
-
-    chatCmp.unresolvedHandler = () => {
-      this.overlayService.close();
-      this.router.navigate(['/ticket']);
-    };
+  onUnresolved(): void {
+    this.overlayService.close();
+    this.router.navigate(['/ticket']);
   }
 }
