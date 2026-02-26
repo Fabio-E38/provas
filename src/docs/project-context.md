@@ -12,9 +12,24 @@
 - **Fase 7** — ✅ Componenti shared — `overlay-container` completato con `.ts`/`.html`/`.css`; altri (`button`, `toast`, `modal`) placeholder
 - **Fase 8** — ✅ Overlay pattern (`overlay.service` + flusso chat→ticket→feedback) MVP implementato
 - **Fase 12** — ✅ Pagine auth aggiuntive: `forgot-password` (form email + stato successo) e `reset-password` (lettura token da query param, validatore cross-field, redirect automatico dopo reset) — mock attivo, pronte per integrazione API Fase 9
-- **Fase 9** — ⏳ Integrazione API reale D365 (sostituisce i mock)
-- **Fase 10** — ⏳ Chat + Knowledge Base (AI) con API reale
+- **Fase 9** — ⏳ Integrazione API reale D365 (sostituisce i mock) — include: rinominare `CasesService` → `AccountService`, estrarre `AccountMock`/`ContactMock` da `mock-data.ts` in `account.model.ts` e `contact.model.ts`
+- **Fase 10** — ⏳ Chat + Knowledge Base (AI) con API reale — la barra di ricerca della Home si collega all'AI
 - **Fase 11** — ⏳ Rifinitura (validazioni, errori, performance)
+- **Fase 13** — ⏳ Design System / Theming — CSS custom properties (`--brand-primary`, ecc.) + `ThemeService` che al login carica colori e logo del tenant
+
+## 0. Filosofia UX
+
+Il progetto è un restyling di un sistema di ticketing legacy (tabellare, passivo) verso un portale **proattivo e AI-driven**.
+
+| Principio | Dettaglio |
+|---|---|
+| **Chatbot-first** | Il chatbot è il punto d'ingresso principale per la risoluzione. L'utente è invitato a descrivere il problema prima di compilare un form. |
+| **Ticket manuale secondario** | Il form ticket esiste come escalation (se il bot non risolve) o per utenti esperti. Non è mai la prima cosa che l'utente vede. |
+| **Interfaccia proattiva** | La Home invita l'utente ad agire ("Come posso aiutarti?"), non mostra tabelle passive. |
+| **Role-based** | `Employee` vede solo i propri ticket. `Support`/`Admin` vedono tutti i ticket. |
+| **Legacy vs Nuovo** | Da griglia tabellare con filtri rigidi → a Bento Grid con hero search, stats cliccabili, risorse KB e CTA chat prominente. |
+
+---
 
 ## 1. Stack Tecnologico
 
@@ -81,7 +96,7 @@ src/
 │       │   └── reset-password.component.css   → stili condivisi auth (glassmorphism)
 │       ├── home/
 │       │   ├── home.component.ts
-│       │   ├── home.component.html   → sidebar + main content + pulsante chat
+│       │   ├── home.component.html   → Bento Grid: hero search + stats cliccabili + ultimi casi + risorse KB + CTA chat
 │       │   └── home.component.css
 │       ├── chat/
 │       │   ├── chat.component.ts
@@ -130,7 +145,7 @@ src/
 | **Account** | accountName, mainPhone, email, addressCity, website, primaryContact, codiceFiscale *(opzionale)* |
 | **Contact** | name, email, businessPhone, companyName, jobTitle |
 | **Feedback** | title, rating, comments *(opzionale)*, source |
-| **User** | id, name, email, role, department *(opzionale)* |
+| **User** | id, name, email, role, department *(opzionale)* — campo `tenantId`/`companyId` in valutazione per Fase 13 (theming per tenant) |
 | **Product** | productId, name, description, productType |
 | **ChatMessage** | id, sender (`user`/`bot`), text, createdAt |
 | **KbDocument** | id, title, summary, fileType |
@@ -162,10 +177,12 @@ Chat/KB   →  da definire
 Gli overlay si sovrappongono alla pagina corrente tramite `overlay-container`.  
 `overlay.service.ts` gestisce apertura/chiusura in modo centralizzato.
 
+Il tipo `OverlayType` supporta: `'chat' | 'ticket' | 'feedback' | null`.
+
 ```
-Login → Home
+Login → Home (Bento Grid)
        ↓
-   Pulsante flottante (bottom-right)
+   CTA "Avvia Chat" nella hero section (+ barra ricerca)
        ↓
       ChatOverlay (mini-chat + KB panel)
      /                     \
@@ -176,7 +193,7 @@ Login → Home
 
 | Overlay | Trigger | Esito |
 |---|---|---|
-| `chat-overlay` | pulsante flottante in Home | risolto → chiusura overlay / non risolto → redirect `/ticket` |
+| `chat-overlay` | CTA "Avvia Chat" nella hero section della Home | risolto → chiusura overlay / non risolto → redirect `/ticket` |
 | `ticket-overlay` | chatbot fallisce o clic manuale | toast conferma + redirect CasesPage |
 | `feedback-overlay` | chat risolta, ticket inviato, banner CasesPage | valutazione + commento opzionale |
 
@@ -211,7 +228,40 @@ Login → Home
 
 ---
 
-## 8. Git  Workflow e Comandi
+## 8. Design System
+
+### Regole colori
+- **Zero colori hardcoded** nei componenti — i colori brand usano CSS custom properties
+- Le variabili base sono definite in `styles.css` tramite `:root`
+- I componenti usano le variabili (`var(--brand-primary)`) o classi Tailwind mappate alle variabili
+
+### Variabili CSS (definite in `styles.css`)
+```css
+:root {
+  --brand-primary: #4f46e5;      /* indigo-600 — colore principale azioni/CTA */
+  --brand-primary-hover: #4338ca; /* indigo-700 — hover */
+  --brand-primary-light: #e0e7ff; /* indigo-100 — sfondi leggeri */
+  --brand-surface: #ffffff;       /* sfondo card */
+  --brand-surface-glass: rgba(255, 255, 255, 0.6); /* glassmorphism */
+  --brand-text: #1e293b;          /* slate-800 — testo principale */
+  --brand-text-muted: #64748b;    /* slate-500 — testo secondario */
+  --brand-accent: #f59e0b;        /* amber-500 — stati attenzione */
+  --brand-success: #10b981;       /* emerald-500 — stati positivi */
+  --brand-danger: #ef4444;        /* red-500 — stati critici */
+}
+```
+
+### Linguaggio visivo
+- **Glassmorphism**: `backdrop-blur`, `bg-white/60`, `border-white` — usato su card, overlay, form auth
+- **Rounded corners**: `rounded-2xl` / `rounded-3xl` su tutti i contenitori
+- **Ombre morbide**: `shadow-sm` / `shadow-md`, mai `shadow-lg` su elementi piccoli
+
+### ThemeService (Fase 13)
+Pianificato dopo Fase 11. Al login, il service legge i dati del tenant dall'API e inietta le variabili via `document.documentElement.style.setProperty()`. Fino a quel momento, le variabili `:root` servono come default.
+
+---
+
+## 9. Git  Workflow e Comandi
 
 ### Workflow con Branch (metodo consigliato)
 
