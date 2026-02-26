@@ -1,85 +1,215 @@
-<div class="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
-  <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[260px_1fr] gap-6">
-    <!-- Sidebar -->
-    <aside class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 h-fit">
-      <div class="mb-5">
-        <h2 class="text-lg font-semibold text-gray-800">Menu</h2>
-        <p class="text-xs text-gray-500 mt-1">Navigazione rapida</p>
-      </div>
+<div
+  class="min-h-screen bg-gradient-to-br from-slate-100 via-indigo-50 to-white p-6 sm:p-8 animate-in fade-in slide-in-from-bottom-4 duration-700"
+>
+  <div class="max-w-6xl mx-auto space-y-8">
 
-      <nav class="space-y-2">
-        <a
-          routerLink="/cases"
-          routerLinkActive="bg-blue-50 border-blue-200 text-blue-700"
-          class="block border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
-        >
-          Stati Ticket
-        </a>
-
-        <a
-          routerLink="/ticket"
-          routerLinkActive="bg-blue-50 border-blue-200 text-blue-700"
-          class="block border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
-        >
-          Apri Ticket
-        </a>
-
-        <a
-          routerLink="/feedback"
-          routerLinkActive="bg-blue-50 border-blue-200 text-blue-700"
-          class="block border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 hover:bg-gray-50"
-        >
-          Feedback
-        </a>
-      </nav>
-    </aside>
-
-    <!-- Main content -->
-    <section class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sm:p-8">
-      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-8">
-        <div>
-          <h1 class="text-2xl sm:text-3xl font-bold text-gray-800">Benvenuto nel Ticketing System</h1>
-          <p *ngIf="currentUser" class="text-gray-600 mt-2 text-sm">
-            Utente loggato: <strong>{{ currentUser.email }}</strong>
-          </p>
-        </div>
+    <!-- ── Header ── -->
+    <header class="flex justify-between items-center">
+      <h1 class="text-xl font-bold tracking-tight" style="color: var(--brand-text)">
+        Portale Supporto
+      </h1>
+      <div class="flex items-center gap-3">
+        <span class="text-sm font-medium" style="color: var(--brand-text-muted)">
+          {{ currentUser?.name }}
+        </span>
         <button
           (click)="logout()"
-          class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors duration-200"
+          class="flex items-center gap-1.5 px-4 py-2 text-sm font-medium rounded-xl border transition-all hover:bg-white"
+          style="color: var(--brand-text-muted); border-color: #e2e8f0"
         >
-          Logout
+          <i-lucide name="log-out" class="w-4 h-4"></i-lucide>
+          Esci
         </button>
       </div>
+    </header>
 
-      <div class="grid grid-cols-1 xl:grid-cols-[1.2fr_1fr] gap-6">
-        <div class="rounded-lg border border-gray-200 p-5 bg-gray-50">
-          <h2 class="text-lg font-semibold text-gray-800 mb-2">Come funziona il supporto veloce</h2>
-          <ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
-            <li>Apri la chat dal pulsante in basso a destra.</li>
-            <li>Descrivi il problema in linguaggio naturale.</li>
-            <li>Il bot mostra subito i file/guide consigliati in tempo reale.</li>
-            <li>Se non basta, vieni guidato direttamente all'apertura ticket.</li>
-          </ul>
-        </div>
+    <!-- ── Hero Section: Saluto + Search + CTA Chat ── -->
+    <section
+      class="rounded-3xl p-8 sm:p-10 text-center space-y-5 relative overflow-hidden"
+      style="background: var(--brand-surface-glass); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.8)"
+    >
+      <div class="absolute top-0 right-0 w-48 h-48 rounded-full blur-[80px] opacity-30"
+           style="background: var(--brand-primary)"></div>
 
-        <div class="rounded-lg border border-blue-200 p-5 bg-blue-50">
-          <h3 class="text-base font-semibold text-blue-800 mb-2">Perché conviene usare il bot</h3>
-          <p class="text-sm text-blue-900 mb-3">
-            Riduce il tempo di compilazione ticket e aumenta la qualità delle informazioni inviate al team.
-          </p>
-          <p class="text-xs text-blue-800/90">
-            Se il problema è risolto, chiudi la chat. Se non è risolto, passa subito al form ticket senza perdere contesto.
-          </p>
-        </div>
-      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold" style="color: var(--brand-text)">
+        Ciao, {{ currentUser?.name ?? 'Utente' }} 👋
+      </h2>
+      <p class="text-lg" style="color: var(--brand-text-muted)">
+        Come posso aiutarti oggi?
+      </p>
+
+      <!-- Search bar -->
+      <form (submit)="onSearchSubmit()" class="max-w-xl mx-auto relative">
+        <input
+          type="text"
+          [(ngModel)]="searchQuery"
+          placeholder="Descrivi il tuo problema..."
+          class="w-full rounded-2xl px-5 py-3.5 pr-12 outline-none transition-all focus:ring-2"
+          style="background: var(--brand-surface); border: 1px solid #e2e8f0; color: var(--brand-text)"
+          [style.--tw-ring-color]="'var(--brand-primary)'"
+        />
+        <i-lucide name="search" class="absolute right-4 top-3.5 w-5 h-5" style="color: var(--brand-text-muted)"></i-lucide>
+      </form>
+
+      <!-- Primary CTA -->
+      <button
+        (click)="openChat()"
+        class="inline-flex items-center gap-2 px-8 py-3.5 rounded-2xl text-white font-semibold text-base transition-all shadow-lg hover:shadow-xl hover:scale-[1.02]"
+        style="background: var(--brand-primary); box-shadow: 0 8px 24px color-mix(in srgb, var(--brand-primary) 30%, transparent)"
+      >
+        <i-lucide name="message-circle" class="w-5 h-5"></i-lucide>
+        Avvia Chat con il Supporto
+      </button>
     </section>
-  </div>
 
-  <button
-    (click)="openChat()"
-    class="fixed bottom-6 right-6 z-40 px-4 py-3 rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg text-sm font-semibold transition-colors duration-200"
-    aria-label="Apri chat assistente"
-  >
-    Apri Chat
-  </button>
+    <!-- ── Stats Row ── -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <!-- Aperti -->
+      <a
+        routerLink="/cases"
+        [queryParams]="{ status: 'Open' }"
+        class="rounded-2xl p-5 transition-all hover:shadow-md cursor-pointer group"
+        style="background: var(--brand-surface-glass); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8)"
+      >
+        <span class="text-3xl font-bold" style="color: var(--brand-primary)">
+          {{ openCount }}
+        </span>
+        <p class="text-sm font-medium uppercase mt-1 tracking-wide" style="color: var(--brand-text-muted)">
+          Aperti
+        </p>
+      </a>
+
+      <!-- In corso -->
+      <a
+        routerLink="/cases"
+        [queryParams]="{ status: 'In Progress' }"
+        class="rounded-2xl p-5 transition-all hover:shadow-md cursor-pointer group"
+        style="background: var(--brand-surface-glass); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8)"
+      >
+        <span class="text-3xl font-bold" style="color: var(--brand-accent)">
+          {{ inProgressCount }}
+        </span>
+        <p class="text-sm font-medium uppercase mt-1 tracking-wide" style="color: var(--brand-text-muted)">
+          In Corso
+        </p>
+      </a>
+
+      <!-- Risolti -->
+      <a
+        routerLink="/cases"
+        [queryParams]="{ status: 'Resolved' }"
+        class="rounded-2xl p-5 transition-all hover:shadow-md cursor-pointer group"
+        style="background: var(--brand-surface-glass); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8)"
+      >
+        <span class="text-3xl font-bold" style="color: var(--brand-success)">
+          {{ resolvedCount }}
+        </span>
+        <p class="text-sm font-medium uppercase mt-1 tracking-wide" style="color: var(--brand-text-muted)">
+          Risolti
+        </p>
+      </a>
+    </div>
+
+    <!-- ── Bottom Bento Grid ── -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+      <!-- Ultimi Casi (2/3) -->
+      <div
+        class="lg:col-span-2 rounded-2xl p-6 space-y-4"
+        style="background: var(--brand-surface-glass); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8)"
+      >
+        <div class="flex justify-between items-center">
+          <h3 class="text-lg font-semibold" style="color: var(--brand-text)">Ultimi Casi</h3>
+          <a
+            routerLink="/cases"
+            class="text-sm font-medium flex items-center gap-1 transition-colors hover:underline"
+            style="color: var(--brand-primary)"
+          >
+            Vedi tutti
+            <i-lucide name="arrow-right" class="w-4 h-4"></i-lucide>
+          </a>
+        </div>
+
+        <div *ngIf="recentTickets.length === 0" class="text-sm py-4" style="color: var(--brand-text-muted)">
+          Nessun ticket disponibile.
+        </div>
+
+        <a
+          *ngFor="let ticket of recentTickets"
+          [routerLink]="['/cases', ticket.id]"
+          class="flex items-center justify-between p-4 rounded-xl transition-all hover:shadow-sm"
+          style="background: var(--brand-surface); border: 1px solid #f1f5f9"
+        >
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-9 h-9 rounded-lg flex items-center justify-center shrink-0"
+                 style="background: var(--brand-primary-light)">
+              <i-lucide name="file-text" class="w-4 h-4" style="color: var(--brand-primary)"></i-lucide>
+            </div>
+            <div class="min-w-0">
+              <p class="font-medium text-sm truncate" style="color: var(--brand-text)">{{ ticket.title }}</p>
+              <p class="text-xs" style="color: var(--brand-text-muted)">{{ ticket.numberId }}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 shrink-0 ml-4">
+            <span
+              class="px-2.5 py-0.5 rounded-full text-xs font-semibold"
+              [class]="ticket.priority === 'High'
+                ? 'bg-red-100 text-red-700'
+                : ticket.priority === 'Medium'
+                  ? 'bg-amber-100 text-amber-700'
+                  : 'bg-slate-100 text-slate-600'"
+            >
+              {{ ticket.priority }}
+            </span>
+            <span class="text-xs font-medium" style="color: var(--brand-text-muted)">
+              {{ ticket.status }}
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Right column (1/3) -->
+      <div class="space-y-6">
+
+        <!-- Risorse Utili -->
+        <div
+          class="rounded-2xl p-6 space-y-3"
+          style="background: var(--brand-surface-glass); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8)"
+        >
+          <h3 class="text-lg font-semibold flex items-center gap-2" style="color: var(--brand-text)">
+            <i-lucide name="book-open" class="w-5 h-5" style="color: var(--brand-primary)"></i-lucide>
+            Risorse Utili
+          </h3>
+          <div
+            *ngFor="let doc of kbDocuments"
+            class="p-3 rounded-xl transition-all hover:shadow-sm cursor-pointer"
+            style="background: var(--brand-surface); border: 1px solid #f1f5f9"
+          >
+            <p class="text-sm font-medium" style="color: var(--brand-text)">{{ doc.title }}</p>
+            <p class="text-xs mt-0.5" style="color: var(--brand-text-muted)">{{ doc.summary }}</p>
+          </div>
+        </div>
+
+        <!-- Apri Ticket Manualmente -->
+        <a
+          routerLink="/ticket"
+          class="block rounded-2xl p-6 transition-all hover:shadow-md group"
+          style="background: var(--brand-surface-glass); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.8)"
+        >
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center"
+                 style="background: var(--brand-primary-light)">
+              <i-lucide name="pen-line" class="w-5 h-5" style="color: var(--brand-primary)"></i-lucide>
+            </div>
+            <div>
+              <p class="text-sm font-semibold" style="color: var(--brand-text)">Apri Ticket Manualmente</p>
+              <p class="text-xs" style="color: var(--brand-text-muted)">Preferisci compilare tu? Vai al form.</p>
+            </div>
+          </div>
+        </a>
+
+      </div><!-- /right column -->
+    </div><!-- /bento grid -->
+
+  </div><!-- /max-w container -->
 </div>
