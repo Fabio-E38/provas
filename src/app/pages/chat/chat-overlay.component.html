@@ -1,21 +1,35 @@
-<div class="fixed inset-0 z-50" (click)="close()">
-  <div class="absolute inset-0 bg-black/40"></div>
+<div class="co-backdrop" (click)="close()">
 
-  <div class="absolute inset-0 flex items-end justify-end p-4 sm:p-6 pointer-events-none">
-    <div
-      class="pointer-events-auto w-full max-w-5xl h-[78vh] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden"
-      (click)="$event.stopPropagation()"
-    >
-      <div class="h-full grid grid-cols-1 lg:grid-cols-[1fr_320px]">
-        <app-chat
-          [messages]="messages"
-          [showResolutionActions]="showResolutionActions"
-          (messageSent)="onMessageSent($event)"
-          (resolved)="onResolved()"
-          (unresolved)="onUnresolved()">
-        </app-chat>
-        <app-kb-panel [documents]="kbDocuments"></app-kb-panel>
+  <div class="co-panel" (click)="$event.stopPropagation()">
+
+    <!-- Top bar -->
+    <div class="co-topbar">
+      <div class="co-topbar-left">
+        <div class="co-topbar-ico">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div>
+          <span class="co-topbar-name">Assistente AI</span>
+          <span class="co-topbar-sub">TicketPro Support</span>
+        </div>
       </div>
+      <button class="co-close-btn" (click)="close()" title="Chiudi">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
+
+    <!-- Content: Chat + KB Panel -->
+    <div class="co-content">
+      <app-chat
+        [messages]="messages"
+        [showResolutionActions]="showResolutionActions"
+        (messageSent)="onMessageSent($event)"
+        (resolved)="onResolved()"
+        (unresolved)="onUnresolved()">
+      </app-chat>
+      <app-kb-panel [documents]="kbDocuments"></app-kb-panel>
+    </div>
+
   </div>
+
 </div>

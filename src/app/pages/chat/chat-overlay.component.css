@@ -1,2 +1,96 @@
-/* Chat overlay component styles */
-/* Tailwind classes are used in the template. Add custom styles here. */
+/* ══ Chat Overlay ══ */
+.co-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 20px 24px;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: co-fade 0.18s ease-out both;
+}
+@keyframes co-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.co-panel {
+  width: 100%;
+  max-width: 960px;
+  height: 78vh;
+  min-height: 480px;
+  max-height: 800px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.08);
+  border: 1px solid var(--n100);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: co-up 0.22s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+@keyframes co-up {
+  from { opacity: 0; transform: translateY(24px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Top bar */
+.co-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--n100);
+  background: #fff;
+  flex-shrink: 0;
+}
+.co-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.co-topbar-ico {
+  width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
+  background: var(--brand-primary); color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 6px rgba(79,70,229,0.25);
+}
+.co-topbar-name {
+  display: block;
+  font-size: 14px; font-weight: 700; color: var(--n800);
+  line-height: 1.2;
+}
+.co-topbar-sub {
+  display: block;
+  font-size: 11px; color: var(--n400); font-weight: 500;
+}
+.co-close-btn {
+  width: 32px; height: 32px;
+  background: none; border: 1px solid var(--n100);
+  border-radius: 8px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--n500); transition: all 0.15s;
+}
+.co-close-btn:hover {
+  background: var(--n50); color: var(--n700);
+  border-color: var(--n200);
+}
+
+/* Content: chat + KB side-by-side */
+.co-content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .co-backdrop { padding: 0; align-items: flex-end; justify-content: center; }
+  .co-panel { border-radius: 18px 18px 0 0; max-width: 100%; height: 85vh; }
+  .co-content { grid-template-columns: 1fr; }
+  .kb-shell { display: none; }
+}

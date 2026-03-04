@@ -1,3 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import "tailwindcss";
+
+/* ── Neutral Scale ── */
+:root {
+  --n0:   #ffffff;
+  --n25:  #fafafa;
+  --n50:  #f4f4f4;
+  --n100: #e8e8e8;
+  --n200: #d0d0d0;
+  --n300: #b0b0b0;
+  --n400: #888888;
+  --n500: #5e5e5e;
+  --n600: #444444;
+  --n700: #2e2e2e;
+  --n800: #1a1a1a;
+
+  /* ── Brand (sovrascrivibili da ThemeService – Fase 13) ── */
+  --brand-primary:       #4f46e5;
+  --brand-primary-hover: #4338ca;
+  --brand-primary-light: #e0e7ff;
+  --brand-surface:       #ffffff;
+  --brand-surface-glass: rgba(255,255,255,0.6);
+  --brand-text:          #1e293b;
+  --brand-text-muted:    #64748b;
+  --brand-accent:        #f59e0b;
+  --brand-success:       #10b981;
+  --brand-danger:        #ef4444;
+
+  /* ── Semantic status colors ── */
+  --open-c:   #1d6ae5; --open-bg:   #eef3fd;
+  --prog-c:   #b86e00; --prog-bg:   #fff5e0;
+  --done-c:   #1a7a4a; --done-bg:   #edf7f2;
+  --closed-c: #5a5a5a; --closed-bg: #f0f0f0;
+
+  --low-c:  #2d9e6b; --low-bg:  #edf7f2;
+  --med-c:  #b86e00; --med-bg:  #fff5e0;
+  --high-c: #c94020; --high-bg: #fef0ec;
+  --crit-c: #b01c1c; --crit-bg: #fef2f2;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}

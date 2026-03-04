@@ -1,47 +1,77 @@
-<div class="flex h-full flex-col">
-  <div class="border-b border-gray-200 p-4">
-    <h3 class="text-sm font-semibold text-gray-800">Assistente Ticketing</h3>
-    <p class="text-xs text-gray-500">Descrivi il problema e ti aiuto a risolverlo più velocemente.</p>
-  </div>
+<div class="ct-shell">
 
-  <div class="flex-1 overflow-auto p-4 space-y-3 bg-white">
-    <div *ngFor="let message of messages" class="flex" [class.justify-end]="message.sender === 'user'">
-      <div
-        class="max-w-[85%] rounded-xl px-3 py-2 text-sm"
-        [class.bg-blue-600]="message.sender === 'user'"
-        [class.text-white]="message.sender === 'user'"
-        [class.bg-gray-100]="message.sender === 'bot'"
-        [class.text-gray-800]="message.sender === 'bot'"
-      >
-        {{ message.text }}
-      </div>
+  <!-- Header -->
+  <div class="ct-header">
+    <div class="ct-header-avatar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+    </div>
+    <div class="ct-header-info">
+      <span class="ct-header-name">Assistente AI</span>
+      <span class="ct-header-status">
+        <span class="ct-status-dot"></span>
+        Online — risposta istantanea
+      </span>
     </div>
   </div>
 
-  <div class="border-t border-gray-200 p-3 bg-gray-50">
-    <div class="flex gap-2">
+  <!-- Messages -->
+  <div class="ct-messages">
+
+    <!-- Empty state -->
+    @if (messages.length === 0) {
+      <div class="ct-empty">
+        <div class="ct-empty-ico">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <p class="ct-empty-title">Nessun messaggio</p>
+        <p class="ct-empty-sub">Scrivi il tuo problema e ti rispondo subito</p>
+      </div>
+    }
+
+    <!-- Conversation -->
+    @for (message of messages; track $index) {
+      <div class="ct-row" [class.ct-user]="message.sender === 'user'" [class.ct-bot]="message.sender === 'bot'">
+
+        <!-- AI avatar (bot only) -->
+        @if (message.sender === 'bot') {
+          <div class="ct-msg-avatar">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+        }
+
+        <div class="ct-bubble">{{ message.text }}</div>
+      </div>
+    }
+
+  </div>
+
+  <!-- Input bar -->
+  <div class="ct-input-bar">
+    <div class="ct-field">
       <input
+        class="ct-text-input"
         [(ngModel)]="draft"
         (keyup.enter)="send()"
-        placeholder="Scrivi il tuo problema..."
-        class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm"
+        placeholder="Scrivi il tuo problema…"
+        autocomplete="off"
       />
-      <button
-        (click)="send()"
-        [disabled]="!draft.trim()"
-        class="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg disabled:bg-blue-300"
-      >
-        Invia
+      <button class="ct-send-btn" (click)="send()" [disabled]="!draft.trim()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
       </button>
     </div>
 
-    <div *ngIf="showResolutionActions" class="mt-3 flex gap-2">
-      <button (click)="markResolved()" class="px-3 py-2 text-xs rounded-lg border border-green-300 text-green-700 bg-green-50">
-        Problema risolto
-      </button>
-      <button (click)="markUnresolved()" class="px-3 py-2 text-xs rounded-lg border border-amber-300 text-amber-700 bg-amber-50">
-        Non risolto, apri ticket
-      </button>
-    </div>
+    @if (showResolutionActions) {
+      <div class="ct-actions">
+        <button class="ct-action-btn resolved" (click)="markResolved()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Problema risolto
+        </button>
+        <button class="ct-action-btn unresolved" (click)="markUnresolved()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Non risolto, apri ticket
+        </button>
+      </div>
+    }
   </div>
+
 </div>
