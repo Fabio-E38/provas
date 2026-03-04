@@ -6,10 +6,6 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       <span class="hp-notif-dot"></span>
     </button>
-    <a routerLink="/ticket" class="hp-btn-primary">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      Nuovo Ticket
-    </a>
   </div>
 
   <!-- Body -->
@@ -20,22 +16,22 @@
         <div class="hp-dashboard-header">
           <div class="hp-dash-left">
             <p class="hp-dash-date">{{ todayLabel }}</p>
-            <h1 class="hp-dash-name">Ciao, <em>{{ firstName }}</em> 👋</h1>
+            <h1 class="hp-dash-name">Ciao, <em>{{ firstName }}</em></h1>
           </div>
           <div class="hp-dash-meta">
             <div class="hp-dash-kpi-inline">
-              <span class="hp-dash-ki" style="--c:var(--open-c);--bg:var(--open-bg)">
-                <span class="hp-dash-ki-dot"></span>
-                {{ openCount }} aperti
-              </span>
-              <span class="hp-dash-ki" style="--c:var(--prog-c);--bg:var(--prog-bg)">
-                <span class="hp-dash-ki-dot"></span>
-                {{ inProgressCount }} in corso
-              </span>
-              <span class="hp-dash-ki" style="--c:var(--done-c);--bg:var(--done-bg)">
-                <span class="hp-dash-ki-dot"></span>
-                {{ resolvedCount }} risolti
-              </span>
+              <div class="hp-kpi" style="--c:var(--open-c);--bg:var(--open-bg)">
+                <span class="hp-kpi-num">{{ openCount }}</span>
+                <span class="hp-kpi-label">Aperti</span>
+              </div>
+              <div class="hp-kpi" style="--c:var(--prog-c);--bg:var(--prog-bg)">
+                <span class="hp-kpi-num">{{ inProgressCount }}</span>
+                <span class="hp-kpi-label">In corso</span>
+              </div>
+              <div class="hp-kpi" style="--c:var(--done-c);--bg:var(--done-bg)">
+                <span class="hp-kpi-num">{{ resolvedCount }}</span>
+                <span class="hp-kpi-label">Risolti</span>
+              </div>
             </div>
           </div>
         </div>
@@ -115,6 +111,14 @@
                   Permessi
                 </button>
               </div>
+            </div>
+
+            <!-- Fallback: manual ticket -->
+            <div class="hp-ai-fallback">
+              <a routerLink="/ticket" class="hp-ai-fallback-link">
+                Non trovi la soluzione? <strong>Apri un ticket</strong>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </a>
             </div>
 
           </div>
