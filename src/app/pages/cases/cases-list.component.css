@@ -1,2 +1,140 @@
-/* Cases list component styles */
-/* Tailwind classes are used in the template. Add custom styles here. */
+/* ─────────────────────────────────────────────
+   Cases List — page styles
+   Layout shell handled by AppShellComponent.
+───────────────────────────────────────────── */
+
+:host { display: contents; }
+
+/* Topbar action button */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 7px;
+  background: var(--brand-primary); color: #fff;
+  font-size: 13px; font-weight: 600; border: none;
+  cursor: pointer; transition: background 0.12s, box-shadow 0.12s;
+  font-family: 'IBM Plex Sans', sans-serif; text-decoration: none;
+  box-shadow: 0 1px 4px rgba(79,70,229,0.25);
+}
+.btn-primary:hover { background: var(--brand-primary-hover); box-shadow: 0 3px 10px rgba(79,70,229,0.3); }
+
+/* Page body */
+.cl-body { padding: 20px 24px 40px; animation: cl-up 0.2s ease-out both; }
+
+.cl-card {
+  background: var(--n0);
+  border-radius: 12px;
+  border: 1px solid var(--n100);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+/* Toolbar */
+.cl-toolbar {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--n100);
+  display: flex; align-items: center; gap: 8px;
+  background: var(--n0);
+}
+.cl-search {
+  flex: 1; max-width: 300px;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--n50); border: 1.5px solid var(--n200);
+  border-radius: 8px; padding: 7px 12px; color: var(--n400);
+  transition: border-color 0.15s;
+}
+.cl-search:focus-within { border-color: var(--brand-primary); background: var(--n0); }
+.cl-search-input {
+  border: none; outline: none; font-size: 13px;
+  color: var(--n700); background: none; width: 100%;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.cl-search-input::placeholder { color: var(--n300); }
+.cl-fchip {
+  display: inline-flex; align-items: center;
+  padding: 5px 11px; border: 1px solid var(--n200); border-radius: 6px;
+  font-size: 12px; font-weight: 500; color: var(--n500);
+  background: var(--n0); cursor: pointer; transition: all 0.12s;
+  font-family: 'IBM Plex Sans', sans-serif; white-space: nowrap;
+}
+.cl-fchip:hover { color: var(--n700); border-color: var(--n300); background: var(--n50); }
+.cl-fchip.active {
+  background: var(--brand-primary-light); border-color: var(--brand-primary-light);
+  color: var(--brand-primary); font-weight: 600;
+}
+
+/* Table head */
+.cl-t-head {
+  display: grid;
+  grid-template-columns: 34px 1fr 90px 120px 1fr 80px 20px;
+  gap: 10px; padding: 10px 20px;
+  background: var(--n25); border-bottom: 1px solid var(--n100);
+}
+.cl-th {
+  font-size: 10px; font-weight: 700; color: var(--n400);
+  text-transform: uppercase; letter-spacing: 0.08em;
+  font-family: 'IBM Plex Mono', monospace; white-space: nowrap;
+}
+
+/* Rows */
+.cl-row {
+  display: grid;
+  grid-template-columns: 34px 1fr 90px 120px 1fr 80px 20px;
+  align-items: center; gap: 10px; padding: 13px 20px;
+  border-bottom: 1px solid var(--n50); cursor: pointer;
+  transition: background 0.1s; text-decoration: none;
+  position: relative;
+}
+.cl-row:last-child { border-bottom: none; }
+.cl-row:hover { background: #fafbff; }
+.cl-row:hover::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: var(--brand-primary); border-radius: 0 2px 2px 0;
+}
+
+/* Icon */
+.cl-ico {
+  width: 30px; height: 30px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.cl-ico.b-open   { background: var(--open-bg);   color: var(--open-c); }
+.cl-ico.b-prog   { background: var(--prog-bg);   color: var(--prog-c); }
+.cl-ico.b-done   { background: var(--done-bg);   color: var(--done-c); }
+.cl-ico.b-closed { background: var(--closed-bg); color: var(--closed-c); }
+
+/* Text */
+.cl-title {
+  font-size: 13px; font-weight: 600; color: var(--n800);
+  line-height: 1.3; margin-bottom: 2px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.cl-id   { font-size: 10px; color: var(--n400); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.03em; }
+.cl-meta { font-size: 12px; color: var(--n500); }
+.cl-date { font-size: 11px; color: var(--n400); font-family: 'IBM Plex Mono', monospace; white-space: nowrap; }
+.cl-arrow { color: var(--n300); }
+.cl-row:hover .cl-arrow { color: var(--brand-primary); }
+
+/* Badges */
+.cl-badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px; border-radius: 6px;
+  font-size: 11px; font-weight: 600; white-space: nowrap; letter-spacing: 0.01em;
+}
+.b-open   { background: var(--open-bg);   color: var(--open-c); }
+.b-prog   { background: var(--prog-bg);   color: var(--prog-c); }
+.b-done   { background: var(--done-bg);   color: var(--done-c); }
+.b-closed { background: var(--closed-bg); color: var(--closed-c); }
+.b-low    { background: var(--low-bg);    color: var(--low-c); }
+.b-med    { background: var(--med-bg);    color: var(--med-c); }
+.b-high   { background: var(--high-bg);   color: var(--high-c); }
+.b-crit   { background: var(--crit-bg);   color: var(--crit-c); }
+
+/* Empty / loading state */
+.cl-empty {
+  padding: 48px; text-align: center;
+  color: var(--n400); font-size: 13px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.cl-spin { animation: spin 1s linear infinite; flex-shrink: 0; }
+
+@keyframes spin   { to { transform: rotate(360deg); } }
+@keyframes cl-up  { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }

@@ -9,6 +9,7 @@ import { KbService } from '../../services/kb.service';
 import { User } from '../../models/user.model';
 import { Ticket } from '../../models/ticket.model';
 import { KbDocument } from '../../models/kb-document.model';
+import { AppShellComponent } from '../../shared/components/app-shell/app-shell.component';
 
 export interface SlaItem {
   id: string;
@@ -24,7 +25,7 @@ export interface SlaItem {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, AppShellComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -51,11 +52,6 @@ export class HomeComponent implements OnInit {
   get firstName(): string {
     if (!this.currentUser?.name) return 'Benvenuto';
     return this.currentUser.name.split(' ')[0];
-  }
-
-  get userInitials(): string {
-    if (!this.currentUser?.name) return 'U';
-    return this.currentUser.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
   }
 
   get slaItems(): SlaItem[] {
@@ -119,11 +115,6 @@ export class HomeComponent implements OnInit {
       case 'closed':      return 'hp-b-closed';
       default:            return 'hp-b-open';
     }
-  }
-
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/login']);
   }
 
   openChat(): void {

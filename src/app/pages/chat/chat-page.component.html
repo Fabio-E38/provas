@@ -1,0 +1,28 @@
+<app-shell pageTitle="Assistente AI" section="TicketPro">
+
+  <!-- Page content -->
+  <div class="cp-body">
+    <div class="cp-layout" [class.cp-with-kb]="kbDocuments.length > 0">
+
+      <!-- Chat panel -->
+      <div class="cp-chat-wrap">
+        <app-chat
+          [messages]="messages"
+          [showResolutionActions]="showResolutionActions"
+          (messageSent)="onMessageSent($event)"
+          (resolved)="onResolved()"
+          (unresolved)="onUnresolved()"
+        ></app-chat>
+      </div>
+
+      <!-- KB panel (shown only when there are suggestions) -->
+      @if (kbDocuments.length > 0) {
+        <div class="cp-kb-wrap">
+          <app-kb-panel [documents]="kbDocuments"></app-kb-panel>
+        </div>
+      }
+
+    </div>
+  </div>
+
+</app-shell>

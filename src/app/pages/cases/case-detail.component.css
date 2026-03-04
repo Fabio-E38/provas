@@ -1,2 +1,141 @@
-/* Case detail component styles */
-/* Tailwind classes are used in the template. Add custom styles here. */
+/* ─────────────────────────────────────────────
+   Case Detail — page styles
+   Layout shell handled by AppShellComponent.
+───────────────────────────────────────────── */
+
+:host { display: contents; }
+
+/* Topbar buttons */
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border: 1px solid var(--n200); border-radius: 6px;
+  background: none; color: var(--n600); font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: all 0.12s;
+  font-family: 'IBM Plex Sans', sans-serif; text-decoration: none;
+}
+.btn-outline:hover { background: var(--n50); border-color: var(--n300); color: var(--n800); }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 7px;
+  background: var(--brand-primary); color: #fff;
+  font-size: 13px; font-weight: 600; border: none;
+  cursor: pointer; transition: background 0.12s, box-shadow 0.12s;
+  font-family: 'IBM Plex Sans', sans-serif; text-decoration: none;
+  box-shadow: 0 1px 4px rgba(79,70,229,0.25);
+}
+.btn-primary:hover { background: var(--brand-primary-hover); box-shadow: 0 3px 10px rgba(79,70,229,0.3); }
+
+/* Page body */
+.cd-body { padding: 20px 24px 40px; animation: cd-up 0.2s ease-out both; }
+
+.cd-card {
+  background: var(--n0);
+  border-radius: 12px;
+  border: 1px solid var(--n100);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+/* Card header */
+.cd-header {
+  padding: 28px 32px 24px;
+  border-bottom: 1px solid var(--n100);
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+}
+.cd-number {
+  font-size: 11px; font-weight: 600; color: var(--brand-primary);
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+.cd-title {
+  font-size: 24px; font-weight: 700; color: var(--n800);
+  letter-spacing: -0.02em; line-height: 1.2; margin: 0 0 6px;
+}
+.cd-subject { font-size: 14px; color: var(--n500); margin: 0; line-height: 1.4; }
+.cd-header-badges { display: flex; align-items: center; gap: 8px; flex-shrink: 0; margin-top: 4px; }
+
+/* Sections */
+.cd-section {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--n100);
+}
+.cd-section:last-of-type { border-bottom: none; }
+.cd-section-title {
+  font-size: 11px; font-weight: 700; color: var(--n400);
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  margin: 0 0 16px;
+}
+
+/* Description */
+.cd-desc {
+  font-size: 14px; color: var(--n600); line-height: 1.7;
+  margin: 0; white-space: pre-wrap;
+}
+
+/* Meta grid */
+.cd-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+.cd-field { display: flex; flex-direction: column; gap: 4px; }
+.cd-label {
+  font-size: 10px; font-weight: 700; color: var(--n400);
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.cd-val { font-size: 13px; font-weight: 500; color: var(--n700); }
+
+/* Badges */
+.cd-badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px; border-radius: 6px;
+  font-size: 11px; font-weight: 600; white-space: nowrap;
+}
+.b-open   { background: var(--open-bg);   color: var(--open-c); }
+.b-prog   { background: var(--prog-bg);   color: var(--prog-c); }
+.b-done   { background: var(--done-bg);   color: var(--done-c); }
+.b-closed { background: var(--closed-bg); color: var(--closed-c); }
+.b-low    { background: var(--low-bg);    color: var(--low-c); }
+.b-med    { background: var(--med-bg);    color: var(--med-c); }
+.b-high   { background: var(--high-bg);   color: var(--high-c); }
+.b-crit   { background: var(--crit-bg);   color: var(--crit-c); }
+
+/* Actions bar */
+.cd-actions {
+  padding: 20px 32px;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--n25);
+  border-top: 1px solid var(--n100);
+}
+.cd-btn-ai {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 18px; border-radius: 8px;
+  background: var(--brand-primary); color: #fff;
+  font-size: 13px; font-weight: 600; text-decoration: none;
+  transition: background 0.12s, box-shadow 0.12s;
+  box-shadow: 0 2px 8px rgba(79,70,229,0.2);
+}
+.cd-btn-ai:hover { background: var(--brand-primary-hover); }
+.cd-btn-ghost {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 18px; border-radius: 8px;
+  background: none; border: 1px solid var(--n200);
+  color: var(--n600); font-size: 13px; font-weight: 500; text-decoration: none;
+  transition: all 0.12s;
+}
+.cd-btn-ghost:hover { background: var(--n50); border-color: var(--n300); color: var(--n800); }
+
+/* States */
+.cd-state {
+  padding: 64px; text-align: center;
+  color: var(--n400); font-size: 14px;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.cd-error { color: var(--brand-danger); }
+.cd-spin { animation: spin 1s linear infinite; flex-shrink: 0; }
+
+@keyframes spin  { to { transform: rotate(360deg); } }
+@keyframes cd-up { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }

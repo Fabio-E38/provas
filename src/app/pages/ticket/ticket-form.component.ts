@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { TicketService } from '../../services/ticket.service';
+import { AppShellComponent } from '../../shared/components/app-shell/app-shell.component';
 
 @Component({
   selector: 'app-ticket-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, AppShellComponent],
   templateUrl: './ticket-form.component.html',
   styleUrl: './ticket-form.component.css',
 })

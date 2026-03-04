@@ -1,0 +1,42 @@
+/* ─────────────────────────────────────────────
+   Chat Page — content styles
+   Layout shell handled by AppShellComponent.
+───────────────────────────────────────────── */
+
+:host { display: contents; }
+
+.cp-body {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 56px); /* subtract topbar height */
+  overflow: hidden;
+}
+
+.cp-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  gap: 0;
+}
+
+/* Chat panel — takes full width by default */
+.cp-chat-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-right: 1px solid var(--n100);
+}
+
+/* KB panel — appears on the right when suggestions exist */
+.cp-kb-wrap {
+  width: 320px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  background: var(--n0);
+}
+
+/* When KB panel is shown, chat takes remaining space */
+.cp-with-kb .cp-chat-wrap {
+  flex: 1;
+}

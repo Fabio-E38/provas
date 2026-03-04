@@ -1,0 +1,200 @@
+/* ─────────────────────────────────────────────
+   AppShell — Shared Enterprise Layout
+   Sidebar + Topbar + Page Body slot
+   Zero hardcoded colors — only CSS variables.
+───────────────────────────────────────────── */
+
+:host { display: block; }
+
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--n50);
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+/* ══════════════════════════════════════════
+   SIDEBAR
+══════════════════════════════════════════ */
+
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--n0);
+  border-right: 1px solid var(--n100);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 50;
+}
+
+/* Logo row */
+.sb-top {
+  height: 56px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--n100);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.logo-box {
+  width: 28px;
+  height: 28px;
+  background: var(--brand-primary);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+.logo-text {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--n800);
+  letter-spacing: -0.02em;
+}
+.logo-text span { color: var(--n400); font-weight: 400; }
+
+/* Nav */
+.sb-nav {
+  padding: 12px 8px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--n300);
+  padding: 10px 8px 4px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--n500);
+  cursor: pointer;
+  transition: all 0.12s;
+  text-decoration: none;
+}
+.nav-item:hover { background: var(--n50); color: var(--n700); }
+.nav-item.active {
+  background: var(--brand-primary-light);
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+
+.nav-count {
+  margin-left: auto;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--brand-primary);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* User row */
+.sb-user { padding: 10px 8px; border-top: 1px solid var(--n100); }
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.12s;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+.user-btn:hover { background: var(--n50); }
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--brand-primary-light);
+  color: var(--brand-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.user-info { min-width: 0; }
+.user-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--n700);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user-role { font-size: 11px; color: var(--n400); }
+
+/* ══════════════════════════════════════════
+   MAIN AREA
+══════════════════════════════════════════ */
+
+.main {
+  margin-left: 220px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/* Topbar */
+.topbar {
+  height: 56px;
+  background: var(--n0);
+  border-bottom: 1px solid var(--n100);
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--n400);
+}
+.breadcrumb-section { color: var(--n400); }
+.breadcrumb b { color: var(--n700); font-weight: 600; }
+.topbar-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Page body */
+.page-body {
+  flex: 1;
+  overflow-y: auto;
+}

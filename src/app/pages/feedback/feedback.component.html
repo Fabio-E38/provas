@@ -1,38 +1,88 @@
-<div class="min-h-screen bg-gray-50 p-6">
-  <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">Feedback</h1>
+<app-shell pageTitle="Invia Feedback" section="Feedback">
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid gap-4">
-      <div>
-        <label class="block text-sm text-gray-700 mb-1">Titolo</label>
-        <input formControlName="title" class="w-full border rounded-lg px-3 py-2" />
+  <!-- Page content -->
+  <div class="fb-body">
+    <div class="fb-card">
+
+      <!-- Header -->
+      <div class="fb-card-head">
+        <div class="fb-card-ico">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div>
+          <h1 class="fb-card-title">La tua opinione conta</h1>
+          <p class="fb-card-sub">Aiutaci a migliorare il servizio con il tuo feedback</p>
+        </div>
       </div>
 
-      <div>
-        <label class="block text-sm text-gray-700 mb-1">Rating (1-5)</label>
-        <input formControlName="rating" type="number" min="1" max="5" class="w-full border rounded-lg px-3 py-2" />
-      </div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="fb-form">
 
-      <div>
-        <label class="block text-sm text-gray-700 mb-1">Commento (opzionale)</label>
-        <textarea formControlName="comments" rows="4" class="w-full border rounded-lg px-3 py-2"></textarea>
-      </div>
+        <!-- Titolo -->
+        <div class="fb-section">
+          <h2 class="fb-section-title">Informazioni</h2>
+          <div class="fb-field">
+            <label class="fb-label">Titolo <span class="fb-req">*</span></label>
+            <input formControlName="title" class="fb-input" placeholder="Argomento del feedback" />
+          </div>
+        </div>
 
-      <div>
-        <label class="block text-sm text-gray-700 mb-1">Source</label>
-        <input formControlName="source" class="w-full border rounded-lg px-3 py-2" />
-      </div>
+        <!-- Star rating -->
+        <div class="fb-section">
+          <h2 class="fb-section-title">Valutazione</h2>
+          <div class="fb-stars">
+            @for (n of [1, 2, 3, 4, 5]; track n) {
+              <button
+                type="button"
+                class="fb-star"
+                [class.active]="n <= (hoverRating || currentRating)"
+                (click)="setRating(n)"
+                (mouseenter)="hoverRating = n"
+                (mouseleave)="hoverRating = 0"
+                [attr.aria-label]="n + ' stelle'"
+              >
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                </svg>
+              </button>
+            }
+            <span class="fb-rating-label">{{ hoverRating || currentRating }} / 5</span>
+          </div>
+        </div>
 
-      <p *ngIf="message" class="text-sm text-green-700 bg-green-50 border border-green-200 rounded p-2">
-        {{ message }}
-      </p>
+        <!-- Commento -->
+        <div class="fb-section">
+          <h2 class="fb-section-title">Commento</h2>
+          <div class="fb-field">
+            <label class="fb-label">Descrivi la tua esperienza <span class="fb-opt">(opzionale)</span></label>
+            <textarea formControlName="comments" rows="4" class="fb-input fb-textarea"
+              placeholder="Cosa hai apprezzato? Cosa potremmo migliorare?"></textarea>
+          </div>
+          <div class="fb-field" style="margin-top:16px">
+            <label class="fb-label">Sorgente <span class="fb-req">*</span></label>
+            <input formControlName="source" class="fb-input" />
+          </div>
+        </div>
 
-      <div class="flex gap-3">
-        <button type="submit" [disabled]="form.invalid" class="px-5 py-2 bg-blue-600 text-white rounded-lg disabled:bg-blue-300 w-fit">
-          Invia Feedback
-        </button>
-        <a routerLink="/home" class="px-5 py-2 border rounded-lg text-gray-700">Home</a>
-      </div>
-    </form>
+        <!-- Success -->
+        @if (message) {
+          <div class="fb-success">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            {{ message }}
+          </div>
+        }
+
+        <!-- Footer -->
+        <div class="fb-footer">
+          <button type="submit" [disabled]="form.invalid" class="fb-btn-submit">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Invia Feedback
+          </button>
+          <a routerLink="/home" class="fb-btn-cancel">Torna alla Dashboard</a>
+        </div>
+
+      </form>
+    </div>
   </div>
-</div>
+
+</app-shell>
+

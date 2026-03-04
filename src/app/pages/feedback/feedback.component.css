@@ -1,2 +1,115 @@
-/* Feedback component styles */
-/* Tailwind classes are used in the template. Add custom styles here. */
+/* ─────────────────────────────────────────────
+   Feedback — page styles
+   Layout shell handled by AppShellComponent.
+───────────────────────────────────────────── */
+
+:host { display: contents; }
+
+/* Page body */
+.fb-body { padding: 20px 24px 40px; animation: fb-up 0.2s ease-out both; }
+
+.fb-card {
+  max-width: 640px;
+  background: var(--n0);
+  border-radius: 12px;
+  border: 1px solid var(--n100);
+  box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+/* Card header */
+.fb-card-head {
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--n100);
+  display: flex; align-items: center; gap: 14px;
+}
+.fb-card-ico {
+  width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+  background: var(--brand-primary-light); color: var(--brand-primary);
+  display: flex; align-items: center; justify-content: center;
+}
+.fb-card-title { font-size: 18px; font-weight: 700; color: var(--n800); letter-spacing: -0.015em; margin: 0 0 2px; }
+.fb-card-sub   { font-size: 13px; color: var(--n500); margin: 0; }
+
+/* Sections */
+.fb-section { padding: 24px 28px; border-bottom: 1px solid var(--n100); }
+.fb-section-title {
+  font-size: 10px; font-weight: 700; color: var(--n400);
+  font-family: 'IBM Plex Mono', monospace;
+  text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 16px;
+}
+
+/* Form fields */
+.fb-field { display: flex; flex-direction: column; gap: 6px; }
+.fb-label { font-size: 12px; font-weight: 600; color: var(--n600); }
+.fb-req   { color: var(--brand-danger); }
+.fb-opt   { font-weight: 400; color: var(--n400); }
+
+.fb-input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid var(--n200); border-radius: 7px;
+  font-size: 13px; color: var(--n800); background: var(--n0);
+  font-family: 'IBM Plex Sans', sans-serif;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none; box-sizing: border-box;
+}
+.fb-input:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+}
+.fb-input::placeholder { color: var(--n300); }
+.fb-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+/* Star rating */
+.fb-stars {
+  display: flex; align-items: center; gap: 4px;
+}
+.fb-star {
+  background: none; border: none; cursor: pointer; padding: 4px;
+  color: var(--n200); transition: color 0.1s, transform 0.1s;
+  line-height: 1;
+}
+.fb-star.active { color: var(--brand-accent); }
+.fb-star:hover  { transform: scale(1.15); }
+.fb-rating-label {
+  margin-left: 8px; font-size: 14px; font-weight: 700;
+  color: var(--n600); font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Footer */
+.fb-footer {
+  padding: 20px 28px;
+  display: flex; align-items: center; gap: 10px;
+  background: var(--n25); border-top: 1px solid var(--n100);
+}
+.fb-btn-submit {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 22px; border-radius: 8px;
+  background: var(--brand-primary); color: #fff;
+  font-size: 13px; font-weight: 600; border: none;
+  cursor: pointer; transition: background 0.12s, box-shadow 0.12s;
+  font-family: 'IBM Plex Sans', sans-serif;
+  box-shadow: 0 2px 8px rgba(79,70,229,0.2);
+}
+.fb-btn-submit:hover:not(:disabled) { background: var(--brand-primary-hover); }
+.fb-btn-submit:disabled { background: var(--n200); color: var(--n400); cursor: not-allowed; box-shadow: none; }
+.fb-btn-cancel {
+  display: inline-flex; align-items: center;
+  padding: 10px 16px; border-radius: 8px;
+  border: 1px solid var(--n200); color: var(--n600);
+  font-size: 13px; font-weight: 500; text-decoration: none;
+  transition: all 0.12s; font-family: 'IBM Plex Sans', sans-serif;
+}
+.fb-btn-cancel:hover { background: var(--n50); border-color: var(--n300); color: var(--n800); }
+
+/* Success */
+.fb-success {
+  display: flex; align-items: center; gap: 8px;
+  margin: 0 28px 0;
+  padding: 12px 16px; border-radius: 8px;
+  background: var(--done-bg); color: var(--done-c);
+  font-size: 13px; font-weight: 500;
+}
+
+@keyframes fb-up { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }

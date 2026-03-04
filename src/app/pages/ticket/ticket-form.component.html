@@ -1,87 +1,122 @@
-<div class="min-h-screen bg-gray-50 p-6">
-  <div class="max-w-3xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">Nuovo Ticket</h1>
+<app-shell pageTitle="Nuovo Ticket" section="Ticket">
 
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid gap-4">
-      <div>
-        <label class="block text-sm text-gray-700 mb-1">Titolo</label>
-        <input formControlName="title" class="w-full border rounded-lg px-3 py-2" />
-      </div>
-
-      <div>
-        <label class="block text-sm text-gray-700 mb-1">Subject</label>
-        <input formControlName="subject" class="w-full border rounded-lg px-3 py-2" />
-      </div>
-
-      <div>
-        <label class="block text-sm text-gray-700 mb-1">Descrizione</label>
-        <textarea formControlName="description" rows="4" class="w-full border rounded-lg px-3 py-2"></textarea>
-      </div>
-
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm text-gray-700 mb-1">Priorità</label>
-          <select formControlName="priority" class="w-full border rounded-lg px-3 py-2">
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-sm text-gray-700 mb-1">Severity</label>
-          <select formControlName="severity" class="w-full border rounded-lg px-3 py-2">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm text-gray-700 mb-1">Status</label>
-          <input formControlName="status" class="w-full border rounded-lg px-3 py-2" />
-        </div>
-        <div>
-          <label class="block text-sm text-gray-700 mb-1">Status Reason</label>
-          <input formControlName="statusReason" class="w-full border rounded-lg px-3 py-2" />
-        </div>
-      </div>
-
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm text-gray-700 mb-1">Origin</label>
-          <input formControlName="origin" class="w-full border rounded-lg px-3 py-2" />
-        </div>
-        <div>
-          <label class="block text-sm text-gray-700 mb-1">Customer ID</label>
-          <input formControlName="customer" class="w-full border rounded-lg px-3 py-2" />
-        </div>
-      </div>
-
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm text-gray-700 mb-1">Email</label>
-          <input formControlName="email" type="email" class="w-full border rounded-lg px-3 py-2" />
-        </div>
-        <div>
-          <label class="block text-sm text-gray-700 mb-1">Product</label>
-          <input formControlName="product" class="w-full border rounded-lg px-3 py-2" />
-        </div>
-      </div>
-
-      <p *ngIf="message" class="text-sm text-green-700 bg-green-50 border border-green-200 rounded p-2">
-        {{ message }}
-      </p>
-
-      <div class="flex gap-3 pt-2">
-        <button type="submit" [disabled]="form.invalid" class="px-5 py-2 bg-blue-600 text-white rounded-lg disabled:bg-blue-300">
-          Crea Ticket
-        </button>
-        <a routerLink="/home" class="px-5 py-2 border rounded-lg text-gray-700">Home</a>
-        <a routerLink="/cases" class="px-5 py-2 border rounded-lg text-gray-700">Annulla</a>
-      </div>
-    </form>
+  <!-- Topbar actions -->
+  <div topbar-actions>
+    <a routerLink="/cases" class="tf-btn-outline">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Lista Casi
+    </a>
   </div>
-</div>
+
+  <!-- Page content -->
+  <div class="tf-body">
+    <div class="tf-card">
+
+      <div class="tf-card-head">
+        <div class="tf-card-ico">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        </div>
+        <div>
+          <h1 class="tf-card-title">Apri nuovo ticket</h1>
+          <p class="tf-card-sub">Compila i campi per segnalare un problema al supporto</p>
+        </div>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="tf-form">
+
+        <!-- Row 1: Titolo -->
+        <div class="tf-section">
+          <h2 class="tf-section-title">Informazioni principali</h2>
+          <div class="tf-grid">
+            <div class="tf-field tf-col-full">
+              <label class="tf-label">Titolo <span class="tf-req">*</span></label>
+              <input formControlName="title" class="tf-input" placeholder="Breve descrizione del problema" />
+            </div>
+            <div class="tf-field tf-col-full">
+              <label class="tf-label">Subject <span class="tf-req">*</span></label>
+              <input formControlName="subject" class="tf-input" placeholder="Categoria / area di riferimento" />
+            </div>
+            <div class="tf-field tf-col-full">
+              <label class="tf-label">Descrizione <span class="tf-req">*</span></label>
+              <textarea formControlName="description" rows="4" class="tf-input tf-textarea" placeholder="Descrivi il problema nel dettaglio…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2: Classificazione -->
+        <div class="tf-section">
+          <h2 class="tf-section-title">Classificazione</h2>
+          <div class="tf-grid">
+            <div class="tf-field">
+              <label class="tf-label">Priorità <span class="tf-req">*</span></label>
+              <select formControlName="priority" class="tf-input tf-select">
+                <option value="Low">Bassa</option>
+                <option value="Medium">Media</option>
+                <option value="High">Alta</option>
+                <option value="Critical">Critica</option>
+              </select>
+            </div>
+            <div class="tf-field">
+              <label class="tf-label">Severità <span class="tf-req">*</span></label>
+              <select formControlName="severity" class="tf-input tf-select">
+                <option value="1">1 — Critica</option>
+                <option value="2">2 — Alta</option>
+                <option value="3">3 — Media</option>
+              </select>
+            </div>
+            <div class="tf-field">
+              <label class="tf-label">Stato <span class="tf-req">*</span></label>
+              <input formControlName="status" class="tf-input" />
+            </div>
+            <div class="tf-field">
+              <label class="tf-label">Motivo stato <span class="tf-req">*</span></label>
+              <input formControlName="statusReason" class="tf-input" />
+            </div>
+            <div class="tf-field">
+              <label class="tf-label">Origine <span class="tf-req">*</span></label>
+              <input formControlName="origin" class="tf-input" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3: Contatto -->
+        <div class="tf-section">
+          <h2 class="tf-section-title">Dati cliente</h2>
+          <div class="tf-grid">
+            <div class="tf-field">
+              <label class="tf-label">Cliente ID <span class="tf-req">*</span></label>
+              <input formControlName="customer" class="tf-input" />
+            </div>
+            <div class="tf-field">
+              <label class="tf-label">Email <span class="tf-req">*</span></label>
+              <input formControlName="email" type="email" class="tf-input" placeholder="nome@azienda.it" />
+            </div>
+            <div class="tf-field">
+              <label class="tf-label">Prodotto <span class="tf-req">*</span></label>
+              <input formControlName="product" class="tf-input" placeholder="Nome prodotto" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit area -->
+        @if (message) {
+          <div class="tf-success">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            {{ message }}
+          </div>
+        }
+
+        <div class="tf-footer">
+          <button type="submit" [disabled]="form.invalid" class="tf-btn-submit">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Crea Ticket
+          </button>
+          <a routerLink="/cases" class="tf-btn-cancel">Annulla</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+</app-shell>
+

@@ -1,35 +1,76 @@
-<div class="min-h-screen bg-gray-50 p-6">
-  <div class="max-w-6xl mx-auto">
-    <div class="mb-4">
-      <a routerLink="/home" class="text-sm text-blue-600 hover:underline">← Torna alla Home</a>
-    </div>
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">Lista Ticket</h1>
+<app-shell pageTitle="Lista Casi" section="Ticket">
 
-    <div *ngIf="loading" class="text-sm text-gray-500">Caricamento ticket...</div>
+  <!-- Topbar actions -->
+  <div topbar-actions>
+    <a routerLink="/ticket" class="btn-primary">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      Nuovo Ticket
+    </a>
+  </div>
 
-    <div *ngIf="!loading && tickets.length === 0" class="text-sm text-gray-500">
-      Nessun ticket disponibile.
-    </div>
+  <!-- Page content -->
+  <div class="cl-body">
+    <div class="cl-card">
 
-    <div *ngIf="!loading && tickets.length > 0" class="grid gap-4">
-      <a
-        *ngFor="let ticket of tickets"
-        [routerLink]="['/cases', ticket.id]"
-        class="block bg-white rounded-xl shadow-sm border border-gray-200 p-4 hover:shadow-md transition"
-      >
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-xs text-gray-500">{{ ticket.numberId }}</p>
-            <h2 class="text-lg font-semibold text-gray-800">{{ ticket.title }}</h2>
-            <p class="text-sm text-gray-600 mt-1">{{ ticket.subject }}</p>
-          </div>
-
-          <div class="text-right">
-            <p class="text-xs text-gray-500">Priorità</p>
-            <p class="text-sm font-semibold text-gray-800">{{ ticket.priority }}</p>
-          </div>
+      <!-- Toolbar -->
+      <div class="cl-toolbar">
+        <div class="cl-search">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input class="cl-search-input" type="text" placeholder="Cerca per titolo, ID o cliente…"
+            [(ngModel)]="searchQuery" />
         </div>
-      </a>
+        <button class="cl-fchip" [class.active]="activeFilter==='all'" (click)="activeFilter='all'">Tutti</button>
+        <button class="cl-fchip" [class.active]="activeFilter==='open'" (click)="activeFilter='open'">Aperti</button>
+        <button class="cl-fchip" [class.active]="activeFilter==='in-progress'" (click)="activeFilter='in-progress'">In Corso</button>
+        <button class="cl-fchip" [class.active]="activeFilter==='resolved'" (click)="activeFilter='resolved'">Risolti</button>
+      </div>
+
+      <!-- Table head -->
+      <div class="cl-t-head">
+        <span class="cl-th"></span>
+        <span class="cl-th">Ticket</span>
+        <span class="cl-th">Priorità</span>
+        <span class="cl-th">Stato</span>
+        <span class="cl-th">Cliente</span>
+        <span class="cl-th">Data</span>
+        <span class="cl-th"></span>
+      </div>
+
+      <!-- Loading -->
+      @if (loading) {
+        <div class="cl-empty">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="cl-spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+          Caricamento…
+        </div>
+      }
+
+      <!-- Empty -->
+      @if (!loading && filtered.length === 0) {
+        <div class="cl-empty">Nessun ticket trovato.</div>
+      }
+
+      <!-- Rows -->
+      @for (ticket of filtered; track ticket.id) {
+        <a [routerLink]="['/cases', ticket.id]" class="cl-row">
+          <div class="cl-ico" [ngClass]="statusClass(ticket.status)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+            </svg>
+          </div>
+          <div>
+            <div class="cl-title" [title]="ticket.title">{{ ticket.title }}</div>
+            <div class="cl-id">{{ ticket.numberId }}</div>
+          </div>
+          <span class="cl-badge" [ngClass]="priorityClass(ticket.priority)">{{ ticket.priority }}</span>
+          <span class="cl-badge" [ngClass]="statusClass(ticket.status)">{{ ticket.status }}</span>
+          <div class="cl-meta">{{ ticket.customer }}</div>
+          <div class="cl-date">{{ ticket.createdOn | date:'dd/MM/yy' }}</div>
+          <svg class="cl-arrow" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </a>
+      }
+
     </div>
   </div>
-</div>
+
+</app-shell>
+

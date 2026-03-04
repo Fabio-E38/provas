@@ -1,0 +1,89 @@
+<div class="shell">
+
+  <!-- ── Sidebar ── -->
+  <aside class="sidebar">
+    <div class="sb-top">
+      <div class="logo-box">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 1L14 4.5V11.5L8 15L2 11.5V4.5L8 1Z" fill="currentColor" opacity=".2"/>
+          <path d="M8 1L14 4.5V11.5L8 15L2 11.5V4.5L8 1Z" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="logo-text">Ticket<span>Pro</span></div>
+    </div>
+
+    <nav class="sb-nav">
+      <span class="nav-label">Principale</span>
+
+      <a routerLink="/home" routerLinkActive="active" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        Dashboard
+      </a>
+
+      <a routerLink="/cases" routerLinkActive="active" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+        </svg>
+        Casi (Tickets)
+        @if (totalCount > 0) {
+          <span class="nav-count">{{ totalCount }}</span>
+        }
+      </a>
+
+      <a routerLink="/ticket" routerLinkActive="active" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+        Apri Ticket
+      </a>
+
+      <a routerLink="/chat" routerLinkActive="active" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+        Assistente AI
+      </a>
+
+      <span class="nav-label">Altro</span>
+
+      <a routerLink="/feedback" routerLinkActive="active" class="nav-item">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+        </svg>
+        Feedback
+      </a>
+    </nav>
+
+    <div class="sb-user">
+      <button class="user-btn" (click)="logout()">
+        <div class="avatar">{{ userInitials }}</div>
+        <div class="user-info">
+          <div class="user-name">{{ currentUser?.name || 'Utente' }}</div>
+          <div class="user-role">{{ currentUser?.role || 'Customer' }}</div>
+        </div>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── Main ── -->
+  <div class="main">
+    <header class="topbar">
+      <nav class="breadcrumb" aria-label="breadcrumb">
+        <span class="breadcrumb-section">{{ section }}</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        <b>{{ pageTitle }}</b>
+      </nav>
+      <div class="topbar-actions">
+        <ng-content select="[topbar-actions]"></ng-content>
+      </div>
+    </header>
+
+    <div class="page-body">
+      <ng-content></ng-content>
+    </div>
+  </div>
+
+</div>
