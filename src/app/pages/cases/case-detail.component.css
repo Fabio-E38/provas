@@ -21,9 +21,9 @@
   font-size: 13px; font-weight: 600; border: none;
   cursor: pointer; transition: background 0.12s, box-shadow 0.12s;
   font-family: 'IBM Plex Sans', sans-serif; text-decoration: none;
-  box-shadow: 0 1px 4px rgba(79,70,229,0.25);
+  box-shadow: var(--brand-shadow-sm);
 }
-.btn-primary:hover { background: var(--brand-primary-hover); box-shadow: 0 3px 10px rgba(79,70,229,0.3); }
+.btn-primary:hover { background: var(--brand-primary-hover); box-shadow: var(--brand-shadow-lg); }
 
 /* Page body */
 .cd-body { padding: 20px 24px 40px; animation: cd-up 0.2s ease-out both; }
@@ -116,7 +116,7 @@
   background: var(--brand-primary); color: #fff;
   font-size: 13px; font-weight: 600; text-decoration: none;
   transition: background 0.12s, box-shadow 0.12s;
-  box-shadow: 0 2px 8px rgba(79,70,229,0.2);
+  box-shadow: var(--brand-shadow-md);
 }
 .cd-btn-ai:hover { background: var(--brand-primary-hover); }
 .cd-btn-ghost {

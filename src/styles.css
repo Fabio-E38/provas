@@ -20,6 +20,7 @@
   --brand-primary:       #4f46e5;
   --brand-primary-hover: #4338ca;
   --brand-primary-light: #e0e7ff;
+  --brand-primary-rgb:   79, 70, 229;   /* canale R,G,B — usato per rgba() con opacità */
   --brand-surface:       #ffffff;
   --brand-surface-glass: rgba(255,255,255,0.6);
   --brand-text:          #1e293b;
@@ -38,6 +39,13 @@
   --med-c:  #b86e00; --med-bg:  #fff5e0;
   --high-c: #c94020; --high-bg: #fef0ec;
   --crit-c: #b01c1c; --crit-bg: #fef2f2;
+
+  /* ── Derived tokens (shadow + focus) — cambiano automaticamente con --brand-primary-rgb ── */
+  --brand-shadow-sm:   0 1px  4px rgba(var(--brand-primary-rgb), 0.25);
+  --brand-shadow-md:   0 2px  8px rgba(var(--brand-primary-rgb), 0.20);
+  --brand-shadow-lg:   0 3px 10px rgba(var(--brand-primary-rgb), 0.30);
+  --brand-focus-ring:  0 0   0 3px rgba(var(--brand-primary-rgb), 0.10);
+  --brand-row-hover:   color-mix(in srgb, var(--brand-primary) 3%, var(--n0));
 }
 
 body {

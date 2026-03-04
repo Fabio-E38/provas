@@ -85,7 +85,7 @@
 }
 .tf-input:focus {
   border-color: var(--brand-primary);
-  box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
+  box-shadow: var(--brand-focus-ring);
 }
 .tf-input::placeholder { color: var(--n300); }
 .tf-textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
@@ -112,7 +112,7 @@
   font-size: 13px; font-weight: 600; border: none;
   cursor: pointer; transition: background 0.12s, box-shadow 0.12s;
   font-family: 'IBM Plex Sans', sans-serif;
-  box-shadow: 0 2px 8px rgba(79,70,229,0.2);
+  box-shadow: var(--brand-shadow-md);
 }
 .tf-btn-submit:hover:not(:disabled) { background: var(--brand-primary-hover); }
 .tf-btn-submit:disabled {
