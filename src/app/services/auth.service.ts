@@ -1,14 +1,17 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { User } from '../models/user.model';
+import { User, UserRole } from '../models/user.model';
 import { environment } from '../../environments/environment';
 
 interface LoginResponse {
   token: string;
   user: User;
 }
+
+// ─── MOCK LOGIN — accetta qualsiasi credenziale (rimuovere prima del deploy) ───
+const MOCK_LOGIN = true;
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +38,19 @@ export class AuthService {
   }
 
   login(email: string, password: string): Observable<LoginResponse> {
+    if (MOCK_LOGIN) {
+      const firstName = 'Utente';
+      const mockRes: LoginResponse = {
+        token: 'mock-token-' + Date.now(),
+        user: {
+          id: '1',
+          name: firstName,
+          email,
+          role: UserRole.Employee
+        } as User
+      };
+      return of(mockRes).pipe(tap(res => this.saveAuthData(res.token, res.user)));
+    }
     return this.http.post<LoginResponse>(`${this.api}/auth/login`, { email, password }).pipe(
       tap(res => this.saveAuthData(res.token, res.user))
     );
