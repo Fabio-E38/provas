@@ -58,6 +58,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/feedback/feedback.component').then(m => m.FeedbackComponent),
     canActivate: [authGuard]
   },
+  {
+    path: 'chat',
+    loadComponent: () => import('./pages/chat/chat-page.component').then(m => m.ChatPageComponent),
+    canActivate: [authGuard]
+  },
 
   // Wildcard: qualsiasi URL non riconosciuto viene reindirizzato a /home.
   // Va sempre messo come ULTIMA rotta, altrimenti blocca le rotte successive.

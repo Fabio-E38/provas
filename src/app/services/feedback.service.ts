@@ -1,23 +1,21 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Feedback } from '../models/feedback.model';
-import { MOCK_FEEDBACKS } from '../models/mock-data';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FeedbackService {
-  private feedbacks: Feedback[] = [...MOCK_FEEDBACKS];
+  private readonly api = environment.apiUrl;
+  private readonly http = inject(HttpClient);
 
   submitFeedback(payload: Feedback): Observable<{ success: boolean; message: string }> {
-    this.feedbacks.push(payload);
-    return of({
-      success: true,
-      message: 'Feedback inviato con successo.'
-    });
+    return this.http.post<{ success: boolean; message: string }>(`${this.api}/feedback`, payload);
   }
 
   getFeedbacks(): Observable<Feedback[]> {
-    return of(this.feedbacks);
+    return this.http.get<Feedback[]>(`${this.api}/feedback`);
   }
 }

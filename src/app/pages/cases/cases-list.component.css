@@ -138,3 +138,21 @@
 
 @keyframes spin   { to { transform: rotate(360deg); } }
 @keyframes cl-up  { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .cl-body { padding: 16px 16px 40px; }
+  .cl-toolbar { flex-wrap: wrap; }
+  .cl-search { max-width: 100%; flex: 1 1 100%; }
+}
+
+@media (max-width: 640px) {
+  .cl-body { padding: 10px 10px 80px; }
+  /* Table: horizontal scroll on mobile */
+  .cl-card { overflow-x: auto; }
+  .cl-t-head,
+  .cl-row { min-width: 520px; }
+}

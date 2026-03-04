@@ -113,3 +113,21 @@
 }
 
 @keyframes fb-up { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .fb-body { padding: 16px 16px 40px; }
+  .fb-card { max-width: 100%; }
+}
+
+@media (max-width: 640px) {
+  .fb-body     { padding: 10px 10px 80px; }
+  .fb-section  { padding: 16px 16px; }
+  .fb-card-head { padding: 16px 16px; }
+  .fb-footer   { padding: 14px 16px; flex-wrap: wrap; }
+  .fb-btn-submit { flex: 1; justify-content: center; }
+  .fb-btn-cancel { flex: 1; justify-content: center; }
+}

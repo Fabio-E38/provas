@@ -55,6 +55,6 @@ export class ChatPageComponent {
   }
 
   onUnresolved(): void {
-    this.router.navigate(['/ticket/new']);
+    this.router.navigate(['/ticket']);
   }
 }

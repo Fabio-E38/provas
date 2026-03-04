@@ -138,3 +138,24 @@
 }
 
 @keyframes tf-up { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .tf-body    { padding: 16px 16px 40px; }
+  .tf-card    { max-width: 100%; }
+  .tf-section { padding: 20px 20px; }
+  .tf-footer  { padding: 16px 20px; }
+}
+
+@media (max-width: 640px) {
+  .tf-body    { padding: 10px 10px 80px; }
+  .tf-section { padding: 16px 16px; }
+  .tf-card-head { padding: 16px 16px; }
+  .tf-grid    { grid-template-columns: 1fr; }
+  .tf-footer  { padding: 14px 16px; flex-wrap: wrap; }
+  .tf-btn-submit { flex: 1; justify-content: center; }
+  .tf-btn-cancel { flex: 1; justify-content: center; }
+}

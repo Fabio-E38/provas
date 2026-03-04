@@ -40,3 +40,20 @@
 .cp-with-kb .cp-chat-wrap {
   flex: 1;
 }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+
+/* Tablet: KB panel narrower */
+@media (max-width: 1024px) {
+  .cp-kb-wrap { width: 260px; }
+}
+
+/* Mobile: stack chat + KB vertically */
+@media (max-width: 640px) {
+  .cp-body { height: calc(100vh - 56px - 60px); } /* subtract bottom nav */
+  .cp-layout { flex-direction: column; }
+  .cp-chat-wrap { border-right: none; border-bottom: 1px solid var(--n100); flex: 1; }
+  .cp-kb-wrap { width: 100%; max-height: 220px; flex-shrink: 0; border-top: 1px solid var(--n100); }
+}

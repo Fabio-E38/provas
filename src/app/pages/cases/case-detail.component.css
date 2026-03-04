@@ -139,3 +139,29 @@
 
 @keyframes spin  { to { transform: rotate(360deg); } }
 @keyframes cd-up { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .cd-body    { padding: 16px 16px 40px; }
+  .cd-section { padding: 20px 20px; }
+  .cd-header  { padding: 20px 20px 18px; }
+  .cd-actions { padding: 16px 20px; }
+}
+
+@media (max-width: 640px) {
+  .cd-body { padding: 10px 10px 80px; }
+  .cd-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 16px;
+  }
+  .cd-title   { font-size: 18px; }
+  .cd-section { padding: 16px 16px; }
+  .cd-actions { flex-wrap: wrap; padding: 14px 16px; }
+  .cd-actions a,
+  .cd-actions button { flex: 1; justify-content: center; }
+}
